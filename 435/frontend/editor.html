@@ -104,6 +104,19 @@ button:hover { opacity: 0.9; }</textarea>
         const previewFrame = document.getElementById('preview-frame');
         const refreshBtn = document.getElementById('refresh-btn');
 
+
+        const savedHTML = localStorage.getItem("editorHTML");
+        const savedCSS  = localStorage.getItem("editorCSS");
+
+        if (savedHTML) {
+        document.getElementById("html-code").value = savedHTML;
+        }
+        if (savedCSS) {
+        document.getElementById("css-code").value = savedCSS;
+        }
+
+
+
         function updatePreview() {
             const html = htmlInput.value;
             const css = `<style>${cssInput.value}</style>`;

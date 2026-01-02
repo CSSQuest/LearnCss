@@ -1103,3 +1103,64 @@ body.is-resizing { cursor: grabbing; user-select: none; }
   .docs-content { padding: 2rem 1.5rem; }
   .docs-content h1 { font-size: 2rem; }
 }
+
+
+
+.example-card {
+  background: #e7e9eb;
+  padding: 1.5rem;
+  border-radius: 6px;
+  margin: 2rem 0;
+}
+
+.example-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+
+.example-card .code-block {
+  background: #ffffff;            
+  border-left: 4px solid #04AA6D;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 0 0 1rem 0;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
+               "Liberation Mono", monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+
+  color: #111827;                   
+}
+
+.example-card .code-block pre {
+  margin: 0;
+  white-space: pre;
+}
+
+.example-card .code-block code {
+  background: transparent;
+  color: inherit;
+}
+
+
+.example-card .code-block ::selection {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+
+.example-card .try-btn {
+  display: inline-block;
+  background: #04AA6D;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.example-card .try-btn:hover {
+  background: #039a63;
+}

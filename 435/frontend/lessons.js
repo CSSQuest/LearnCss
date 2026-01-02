@@ -6,7 +6,9 @@ const lessonsData = {
         prev: null,
         next: "selectors",
         content: `
-            <p Cem class="lead">CSS (Cascading Style Sheets) is the style sheet language used for describing the presentation of a document written in a markup language such as HTML.</p>
+            <p class="lead">CSS (Cascading Style Sheets) is the style sheet language used for describing the presentation of a document written in a markup language such as HTML.</p>
+
+            <p>It separates the content (HTML) from the presentation (visual design). This means you can change the entire look of a website just by changing one file!</p>
             
             <h2>Why use CSS?</h2>
             <p>CSS solves a big problem: <strong>HTML was never intended to contain tags for formatting a web page!</strong></p>
@@ -23,6 +25,12 @@ h1 {
             </div>
             
             <p>In this example, <code>h1</code> is the selector, and everything inside the curly braces <code>{}</code> is the declaration block.</p>
+
+            <p>Each CSS rule-set consists of a selector and a declaration block. The selector is the HTML element you want to style, and the declaration block contains one or more declarations separated by semicolons.</p>
+
+            property: value;
+
+            <p>In this example, <code>color</code> is the property, and <code>blue</code> is the value. They are separated by a colon.</p>
             
             <a href="editor.html" class="btn btn-outline" style="margin-top:1rem">Open in Live Editor →</a>
         `
@@ -39,26 +47,53 @@ h1 {
             <h2>1. The Element Selector</h2>
             <p>The element selector selects HTML elements based on the element name.</p>
             
-            <div class="code-block">
-/* Selects all <p> elements */
-p {
+<div class="example-card">
+
+  <h3>Example</h3>
+  <p>Here, all &lt;p&gt; elements on the page will be center-aligned, with a red text color:</p>
+
+  <div class="example-code code-block"
+       data-html="<p>Every paragraph will be affected by the style.</p>
+<p>Me too!</p>
+<p>And me!</p>"
+       data-css="p { text-align: center; color: red; }">
+
+<pre><code>p {
   text-align: center;
   color: red;
-}
-            </div>
+}</code></pre>
 
-            <h2>2. The Class Selector</h2>
-            <p>To select elements with a specific class, write a period (.) character, followed by the class name.</p>
-             <div class="code-block">
-/* Selects all elements with class="center" */
+  </div>
+
+  <a href="editor.html" class="try-btn open-editor">
+    Try it Yourself »
+  </a>
+
+</div>
+
+<h2>2. The Class Selector</h2>
+<p>To select elements with a specific class, write a period (.) character, followed by the class name.</p>
+
+<div class="code-block"
+     data-html="<p class='center'>This paragraph will be centered.</p>
+<p>This paragraph is not affected.</p>"
+     data-css="/* Selects all elements with class=&quot;center&quot; */
 .center {
   text-align: center;
-  color: red;
-}
-            </div>
-            
-            <p>You can also specify that only specific HTML elements should be affected by a class.</p>
-        `
+  color: orange;
+}">
+
+<pre><code>/* Selects all elements with class="center" */
+.center {
+  text-align: center;
+  color: orange;
+}</code></pre>
+
+</div>
+
+<p>You can also specify that only specific HTML elements should be affected by a class.</p>
+
+ `
     },
 
     "colors": {

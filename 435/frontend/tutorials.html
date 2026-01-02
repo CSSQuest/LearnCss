@@ -64,34 +64,76 @@
             loadLesson(lessonId);
         });
 
-        function loadLesson(id) {
-            const contentArea = document.getElementById('content-area');
-            const lesson = lessonsData[id];
+function loadLesson(id) {
+    const contentArea = document.getElementById('content-area');
+    const lesson = lessonsData[id];
 
-            if (lesson) {
-                // Güncellenmiş HTML yapısı (CSS ile uyumlu)
-                contentArea.innerHTML = `
-                    <span class="lesson-tag">${lesson.category}</span>
-                    <h1>${lesson.title}</h1>
-                    ${lesson.content}
-                    
-                    <div class="lesson-nav">
-                        ${lesson.prev ? `<a href="?id=${lesson.prev}" class="btn btn-outline">← Previous Lesson</a>` : '<div></div>'}
-                        ${lesson.next ? `<a href="?id=${lesson.next}" class="btn btn-primary">Next: ${lessonsData[lesson.next].title} →</a>` : '<div></div>'}
-                    </div>
-                `;
+    if (lesson) {
+        contentArea.innerHTML = `
+            <span class="lesson-tag">${lesson.category}</span>
+            <h1>${lesson.title}</h1>
+            ${lesson.content}
+            
+            <div class="lesson-nav">
+                ${lesson.prev ? `<a href="?id=${lesson.prev}" class="btn btn-outline">← Previous Lesson</a>` : '<div></div>'}
+                ${lesson.next ? `<a href="?id=${lesson.next}" class="btn btn-primary">Next: ${lessonsData[lesson.next].title} →</a>` : '<div></div>'}
+            </div>
+        `;
 
-                // Menü güncelleme ve scroll işlemleri aynı kalıyor...
-                document.querySelectorAll('.docs-nav a').forEach(link => link.classList.remove('active'));
-                const activeLink = document.getElementById(`link-${id}`);
-                if (activeLink) activeLink.classList.add('active');
+        enhanceExamples();
 
-                window.scrollTo(0, 0);
+        document.querySelectorAll('.docs-nav a').forEach(link => link.classList.remove('active'));
+        const activeLink = document.getElementById(`link-${id}`);
+        if (activeLink) activeLink.classList.add('active');
 
-            } else {
-                contentArea.innerHTML = `<h1>404</h1><p>Lesson not found.</p>`;
-            }
-        }
+        window.scrollTo(0, 0);
+
+    } else {
+        contentArea.innerHTML = `<h1>404</h1><p>Lesson not found.</p>`;
+    }
+}
+
+function enhanceExamples() {
+  document.querySelectorAll('.code-block').forEach(block => {
+    if (block.closest('.example-card')) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'example-card';
+
+    const title = document.createElement('h3');
+    title.textContent = 'Example';
+
+    const button = document.createElement('a');
+    button.href = 'editor.html';
+    button.className = 'try-btn open-editor';
+    button.textContent = 'Try it Yourself »';
+
+    block.parentNode.insertBefore(wrapper, block);
+    wrapper.appendChild(title);
+    wrapper.appendChild(block);
+    wrapper.appendChild(button);
+  });
+}
+
+
+    document.addEventListener("click", function (e) {
+    const btn = e.target.closest(".open-editor");
+    if (!btn) return;
+
+
+    const card = btn.closest(".example-card");
+    if (!card) return;
+
+
+    const block = card.querySelector(".code-block");
+    if (!block) return;
+
+
+    localStorage.setItem("editorHTML", block.dataset.html || "");
+    localStorage.setItem("editorCSS", block.dataset.css || "");
+    });
+
+
     </script>
 
         <footer class="site-footer">
