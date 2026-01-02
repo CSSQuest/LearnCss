@@ -93,6 +93,101 @@ h1 {
 
 <p>You can also specify that only specific HTML elements should be affected by a class.</p>
 
+<h2>3. The ID Selector</h2>
+<p>
+  To select a specific element with a unique id, write a hash (#) character,
+  followed by the id name.
+</p>
+
+<div class="code-block"
+     data-html="<p id='highlight'>This paragraph will be styled.</p>
+<p>This paragraph is not affected.</p>"
+     data-css="/* Selects the element with id=&quot;highlight&quot; */
+#highlight {
+  text-align: center;
+  color: red;
+}">
+
+<pre><code>/* Selects the element with id="highlight" */
+#highlight {
+  text-align: center;
+  color: red;
+}</code></pre>
+
+</div>
+
+<p>
+  An id name must be unique within a page, meaning it can only be used once.
+</p>
+
+<p style="color: blue;">An id name can't start with a number.</p>
+
+<h2>4. The Universal Selector</h2>
+<p>
+  The universal selector (*) selects <strong>all HTML elements</strong> on the page.
+</p>
+
+<div class="code-block"
+     data-html="<h3>This is a heading</h3>
+<p>This is a paragraph.</p>
+<button>A button</button>"
+     data-css="/* Selects all elements */
+* {
+  color: purple;
+  font-family: Arial, sans-serif;
+}">
+
+<pre><code>/* Selects all elements */
+* {
+  color: purple;
+  font-family: Arial, sans-serif;
+}</code></pre>
+
+</div>
+
+<p>
+  The universal selector applies the style to every element on the page.
+</p>
+
+<p style="color: blue;">
+  The universal selector should be used carefully, as it affects all elements.
+</p>
+
+<h2>5. The Grouping Selector</h2>
+<p>
+  The grouping selector allows you to apply the same styles to multiple elements
+  by separating them with commas.
+</p>
+
+<div class="code-block"
+     data-html="<h3>This is a heading</h3>
+<p>This is a paragraph.</p>
+<div>This is a div element.</div>"
+     data-css="/* Selects multiple elements */
+h3, p, div {
+  color: green;
+  text-align: center;
+}">
+
+<pre><code>/* Selects multiple elements */
+h3, p, div {
+  color: green;
+  text-align: center;
+}</code></pre>
+
+</div>
+
+<p>
+  In this example, the same style is applied to all <code>h3</code>,
+  <code>p</code>, and <code>div</code> elements.
+</p>
+
+<p style="color: blue;">
+  Grouping selectors help reduce repetition and keep CSS code cleaner.
+</p>
+
+
+
  `
     },
 
