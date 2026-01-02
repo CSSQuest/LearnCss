@@ -6,7 +6,7 @@ const lessonsData = {
         prev: null,
         next: "selectors",
         content: `
-            <p class="lead">CSS (Cascading Style Sheets) is the style sheet language used for describing the presentation of a document written in a markup language such as HTML.</p>
+            <p Cem class="lead">CSS (Cascading Style Sheets) is the style sheet language used for describing the presentation of a document written in a markup language such as HTML.</p>
             
             <h2>Why use CSS?</h2>
             <p>CSS solves a big problem: <strong>HTML was never intended to contain tags for formatting a web page!</strong></p>
