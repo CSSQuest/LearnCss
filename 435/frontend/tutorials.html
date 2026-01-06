@@ -34,13 +34,35 @@
                 <h3>Getting Started</h3>
                 <ul>
                     <li><a href="?id=intro" id="link-intro">1. Introduction</a></li>
-                    <li><a href="?id=selectors" id="link-selectors">2. Selectors</a></li>
-                    <li><a href="?id=colors" id="link-colors">3. Colors & Backgrounds</a></li>
+                    <li><a href="?id=selectors" id="link-selectors">2. CSS Selectors</a></li>
+                    <li><a href="?id=howto" id="link-howto">3. How to Add CSS</a></li>
+                    <li><a href="?id=colors" id="link-colors">4. CSS Colors</a></li>
+                    <li><a href="?id=backgrounds" id="link-backgrounds">5. CSS Backgrounds</a></li>
+                    <li><a href="?id=borders" id="link-borders">6. CSS Borders</a></li>
+                    <li><a href="?id=margin" id="link-margin">7. CSS Margin</a></li>
+                    <li><a href="?id=padding" id="link-padding">8. CSS Padding</a></li>
+                    <li><a href="?id=dimension" id="link-dimension">9. CSS Dimension</a></li>
+                    <li><a href="?id=boxmodel" id="link-boxmodel">10. CSS Box Model</a></li>
+                    <li><a href="?id=outline" id="link-outline">11. CSS Outline</a></li>
+                    <li><a href="?id=text" id="link-text">12. CSS Text</a></li>
+                    <li><a href="?id=fonts" id="link-fonts">13. CSS Fonts</a></li>
+                    <li><a href="?id=icons" id="link-icons">14. CSS Icons</a></li>
+                    <li><a href="?id=links" id="link-links">15. CSS Links</a></li>
+
+
+
+
+
+
+
+
+
+
+
                 </ul>
 
                 <h3 style="margin-top: 2rem;">Layout</h3>
                 <ul>
-                    <li><a href="?id=boxmodel" id="link-boxmodel">4. Box Model</a></li>
                     <li><a href="?id=flexbox" id="link-flexbox">5. Flexbox</a></li>
                     <li><a href="?id=grid" id="link-grid">6. CSS Grid</a></li>
                 </ul>
@@ -65,6 +87,7 @@
         });
 
 function loadLesson(id) {
+    const nextLesson = lessonsData[id].next ? lessonsData[lessonsData[id].next] : null;
     const contentArea = document.getElementById('content-area');
     const lesson = lessonsData[id];
 
@@ -76,7 +99,7 @@ function loadLesson(id) {
             
             <div class="lesson-nav">
                 ${lesson.prev ? `<a href="?id=${lesson.prev}" class="btn btn-outline">← Previous Lesson</a>` : '<div></div>'}
-                ${lesson.next ? `<a href="?id=${lesson.next}" class="btn btn-primary">Next: ${lessonsData[lesson.next].title} →</a>` : '<div></div>'}
+               ${nextLesson? `<a href="?id=${lesson.next}" class="btn btn-primary">Next: ${nextLesson.title} →</a>`: '<div></div>'}
             </div>
         `;
 
