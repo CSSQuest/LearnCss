@@ -1164,3 +1164,50 @@ body.is-resizing { cursor: grabbing; user-select: none; }
 .example-card .try-btn:hover {
   background: #039a63;
 }
+
+/* ===== Editor line highlight layer ===== */
+.code-wrap {
+  position: relative;
+  height: 100%;
+}
+
+.code-wrap textarea {
+  position: relative;
+  z-index: 2;
+  background: transparent; /* highlight görünsün */
+}
+
+/* Highlight bar */
+.line-highlight {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: var(--hl-h, 22px);
+  top: var(--hl-top, 10px);
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08); /* koyu editor ise çok iyi durur */
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* ===== Code cursor (caret) ===== */
+.code-cursor {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: #04AA6D; /* W3Schools yeşili */
+  left: 14px;
+  top: 12px;
+  z-index: 3;
+  pointer-events: none;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+

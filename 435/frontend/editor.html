@@ -37,25 +37,82 @@
                     <span class="lang-label html">HTML</span>
                     <span class="file-name">index.html</span>
                 </div>
-                <textarea id="html-code" spellcheck="false" placeholder="">
-<div class="container">
-  <div class="card">
-    <h2>Hello CSS!</h2>
-    <p>Drag the bars to resize panels.</p>
-    <button>Hover Me</button>
-  </div>
-</div></textarea>
+
+                <div class="code-wrap">
+                    <div class="line-highlight" id="htmlHL"></div>
+                    <div class="code-cursor" id="htmlCursor"></div>
+                    <textarea id="html-code" spellcheck="false" placeholder=""></textarea>
+                </div>
             </div>
+
 
             <div class="resizer resizer-y" id="resizerY"></div>
 
-            <div class="css-section" id="cssSection">
-                <div class="editor-toolbar">
-                    <span class="lang-label css">CSS</span>
-                    <span class="file-name">style.css</span>
+                <div class="css-section" id="cssSection">
+                    <div class="editor-toolbar">
+                        <span class="lang-label css">CSS</span>
+                        <span class="file-name">style.css</span>
+                    </div>
+
+                    <div class="code-wrap">
+                    <div class="line-highlight" id="cssHL"></div>
+                    <div class="code-cursor" id="cssCursor"></div>
+                    <textarea id="css-code" spellcheck="false" placeholder="/* CSS here */"></textarea>
+                    </div>
+
                 </div>
-                <textarea id="css-code" spellcheck="false" placeholder="/* CSS here */">
-body {
+
+        </div>
+
+        <div class="resizer resizer-x" id="resizerX"></div>
+
+        <div class="preview-panel" id="previewPanel">
+            <div class="editor-toolbar preview-header">
+                <span class="lang-label preview">Preview</span>
+                <button id="refresh-btn" style="background:none; border:none; color:inherit; cursor:pointer;">↻</button>
+            </div>
+            <iframe id="preview-frame"></iframe>
+            <div class="iframe-shield"></div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- 1. LIVE PREVIEW ---
+        const htmlCursor = document.getElementById("htmlCursor");
+        const cssCursor = document.getElementById("cssCursor");
+        const htmlInput = document.getElementById('html-code');
+        const cssInput = document.getElementById('css-code');
+        const previewFrame = document.getElementById('preview-frame');
+        const refreshBtn = document.getElementById('refresh-btn');
+
+
+
+        function updatePreview() {
+            const html = htmlInput.value;
+            const css = `<style>${cssInput.value}</style>`;
+            const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+            doc.open();
+            doc.write(css + html);
+            doc.close();
+        }
+
+        htmlInput.addEventListener('input', updatePreview);
+        cssInput.addEventListener('input', updatePreview);
+        refreshBtn.addEventListener('click', updatePreview);
+        window.addEventListener("load", () => {
+  const storedHTML = localStorage.getItem("editorHTML");
+  const storedCSS  = localStorage.getItem("editorCSS");
+
+  const fallbackHTML = `<div class="container">
+  <div class="card">
+    <h2>Hello CSS!</h2>
+    <p>Type animation + line highlight ✨</p>
+    <button>Hover Me</button>
+  </div>
+</div>`;
+
+  const fallbackCSS = `body {
   font-family: system-ui;
   background: #f0f2f5;
   display: flex;
@@ -80,56 +137,21 @@ button {
   cursor: pointer;
   margin-top: 1rem;
 }
-button:hover { opacity: 0.9; }</textarea>
-            </div>
-        </div>
+button:hover { opacity: 0.9; }`;
 
-        <div class="resizer resizer-x" id="resizerX"></div>
+  const isEmptyHTML = !storedHTML || !storedHTML.trim();
+  const isEmptyCSS  = !storedCSS  || !storedCSS.trim() || storedCSS.trim() === "/* CSS here */";
 
-        <div class="preview-panel" id="previewPanel">
-            <div class="editor-toolbar preview-header">
-                <span class="lang-label preview">Preview</span>
-                <button id="refresh-btn" style="background:none; border:none; color:inherit; cursor:pointer;">↻</button>
-            </div>
-            <iframe id="preview-frame"></iframe>
-            <div class="iframe-shield"></div>
-        </div>
+  htmlInput.value = isEmptyHTML ? fallbackHTML : storedHTML;
+  cssInput.value  = isEmptyCSS  ? fallbackCSS  : storedCSS;
 
-    </main>
-
-    <script>
-        // --- 1. LIVE PREVIEW ---
-        const htmlInput = document.getElementById('html-code');
-        const cssInput = document.getElementById('css-code');
-        const previewFrame = document.getElementById('preview-frame');
-        const refreshBtn = document.getElementById('refresh-btn');
+  localStorage.removeItem("editorHTML");
+  localStorage.removeItem("editorCSS");
 
 
-        const savedHTML = localStorage.getItem("editorHTML");
-        const savedCSS  = localStorage.getItem("editorCSS");
+  updatePreview();
+});
 
-        if (savedHTML) {
-        document.getElementById("html-code").value = savedHTML;
-        }
-        if (savedCSS) {
-        document.getElementById("css-code").value = savedCSS;
-        }
-
-
-
-        function updatePreview() {
-            const html = htmlInput.value;
-            const css = `<style>${cssInput.value}</style>`;
-            const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
-            doc.open();
-            doc.write(css + html);
-            doc.close();
-        }
-
-        htmlInput.addEventListener('input', updatePreview);
-        cssInput.addEventListener('input', updatePreview);
-        refreshBtn.addEventListener('click', updatePreview);
-        window.addEventListener('load', updatePreview);
 
         // --- 2. RESIZER LOGIC (HASSAS AYARLI) ---
         const workspace = document.getElementById('workspace');
@@ -193,6 +215,142 @@ button:hover { opacity: 0.9; }</textarea>
             isResizingY = false;
             document.body.classList.remove('is-resizing');
         });
+
+                // ===== 3) LOAD + TYPE ANIMATION + LINE HIGHLIGHT =====
+        function getLineHeight(textarea) {
+        const cs = window.getComputedStyle(textarea);
+        const lh = parseFloat(cs.lineHeight);
+        // line-height "normal" gelirse fallback:
+        return Number.isFinite(lh) ? lh : 22;
+        }
+
+        function updateHighlight(textarea, hlEl, cursorEl, lineIndex, colIndex = 0) {
+        const lh = getLineHeight(textarea);
+        hlEl.style.setProperty("--hl-h", `${lh}px`);
+
+        const top = 10 + (lineIndex * lh) - textarea.scrollTop;
+        hlEl.style.setProperty("--hl-top", `${top}px`);
+
+        // Cursor pozisyonu
+        const charWidth = 8; // ortalama karakter genişliği
+        const left = 14 + (colIndex * charWidth);
+
+        cursorEl.style.top = `${top}px`;
+        cursorEl.style.left = `${left}px`;
+        }
+
+
+        async function typeInto(textarea, hlEl, cursorEl, text, speedMs = 6) {
+        textarea.value = "";
+        updateHighlight(textarea, hlEl, cursorEl, 0, 0);
+
+        let lineIndex = 0;
+        let colIndex = 0;
+
+        for (let i = 0; i < text.length; i++) {
+            const ch = text[i];
+            textarea.value += ch;
+
+            if (ch === "\n") {
+            lineIndex++;
+            colIndex = 0;
+            await new Promise(r => setTimeout(r, speedMs * 4)); // satır sonunda minik duraklama
+            } else {
+            colIndex++;
+            }
+
+            textarea.scrollTop = textarea.scrollHeight;
+
+            updateHighlight(textarea, hlEl, cursorEl, lineIndex, colIndex);
+            updatePreview();
+
+            await new Promise(r => setTimeout(r, speedMs));
+        }
+        }
+
+
+        function bindScrollSync(textarea, hlEl, cursorEl) {
+        textarea.addEventListener("scroll", () => {
+            const lineIndex = textarea.value.split("\n").length - 1;
+            updateHighlight(textarea, hlEl, cursorEl, lineIndex, 0);
+        });
+        }
+
+
+window.addEventListener("load", async () => {
+  const htmlHL = document.getElementById("htmlHL");
+  const cssHL = document.getElementById("cssHL");
+
+  // Cursor kullandıysan (HTML'e eklediysen) bunlar gerekli:
+  const htmlCursor = document.getElementById("htmlCursor");
+  const cssCursor = document.getElementById("cssCursor");
+
+  // Eğer bindScrollSync'i cursor'lu yaptıysan:
+  bindScrollSync(htmlInput, htmlHL, htmlCursor);
+  bindScrollSync(cssInput, cssHL, cssCursor);
+
+  // tutorials.html tıklamasından gelen kodlar
+  const storedHTML = localStorage.getItem("editorHTML");
+  const storedCSS = localStorage.getItem("editorCSS");
+
+  // Eğer storage boşsa, fallback demo
+  const fallbackHTML = `<div class="container">
+  <div class="card">
+    <h2>Hello CSS!</h2>
+    <p>Type animation + line highlight ✨</p>
+    <button>Hover Me</button>
+  </div>
+</div>`;
+
+  const fallbackCSS = `body {
+  font-family: system-ui;
+  background: #0b1220;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+.card {
+  background: rgba(255,255,255,0.06);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+}
+button {
+  background: #325dff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+button:hover { opacity: 0.9; }`;
+
+  // HTML boşsa fallback
+  const isEmptyHTML = !storedHTML || !storedHTML.trim();
+  const finalHTML = isEmptyHTML ? fallbackHTML : storedHTML;
+
+  // CSS boşsa veya placeholder gibi ise fallback
+  const isEmptyCSS =
+    !storedCSS ||
+    !storedCSS.trim() ||
+    storedCSS.trim() === "/* CSS here */" ||
+    storedCSS.trim() === "/* CSS Here */";
+
+  const finalCSS = isEmptyCSS ? fallbackCSS : storedCSS;
+
+        // Typing effect (ikisi aynı anda akmasın diye sırayla yaptım)
+        await typeInto(htmlInput, htmlHL, htmlCursor, finalHTML, 12);
+        await typeInto(cssInput, cssHL, cssCursor, finalCSS, 10);
+
+        // Bitti, normal canlı edit çalışmaya devam
+        updatePreview();
+        });
+
     </script>
 
         <footer class="site-footer">

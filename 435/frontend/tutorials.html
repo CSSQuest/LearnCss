@@ -114,6 +114,14 @@
             loadLesson(lessonId);
         });
 
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".open-editor").forEach(btn => {
+    btn.setAttribute("target", "_blank");
+    btn.setAttribute("rel", "noopener noreferrer");
+  });
+});
+
+
 function loadLesson(id) {
     const nextLesson = lessonsData[id].next ? lessonsData[lessonsData[id].next] : null;
     const contentArea = document.getElementById('content-area');
@@ -133,6 +141,12 @@ function loadLesson(id) {
 
         enhanceExamples();
 
+        document.querySelectorAll(".open-editor").forEach(a => {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener noreferrer");
+});
+
+
         document.querySelectorAll('.docs-nav a').forEach(link => link.classList.remove('active'));
         const activeLink = document.getElementById(`link-${id}`);
         if (activeLink) activeLink.classList.add('active');
@@ -143,6 +157,27 @@ function loadLesson(id) {
         contentArea.innerHTML = `<h1>404</h1><p>Lesson not found.</p>`;
     }
 }
+
+// Try it Yourself tıklanınca örneğin HTML/CSS'ini editor'a gönder
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".open-editor");
+  if (!btn) return;
+
+  const block = btn.closest(".code-block");
+  if (!block) return;
+
+  const html = block.dataset.html;
+  const css  = block.dataset.css;
+
+  // HTML yoksa eskiyi ezme: fallback devreye girsin
+  if (html && html.trim()) localStorage.setItem("editorHTML", html);
+  else localStorage.removeItem("editorHTML");
+
+  // CSS yoksa eskiyi ezme: fallback devreye girsin
+  if (css && css.trim()) localStorage.setItem("editorCSS", css);
+  else localStorage.removeItem("editorCSS");
+});
+
 
 function enhanceExamples() {
   document.querySelectorAll('.code-block').forEach(block => {
@@ -157,7 +192,7 @@ function enhanceExamples() {
     const button = document.createElement('a');
     button.href = 'editor.html';
     button.className = 'try-btn open-editor';
-    button.textContent = 'Try it Yourself »';
+    button.textContent = 'Open Live Editor »';
 
     block.parentNode.insertBefore(wrapper, block);
     wrapper.appendChild(title);

@@ -8,7 +8,8 @@ const lessonsData = {
         content: `
             <p class="lead">CSS (Cascading Style Sheets) is the style sheet language used for describing the presentation of a document written in a markup language such as HTML.</p>
 
-            <p>It separates the content (HTML) from the presentation (visual design). This means you can change the entire look of a website just by changing one file!</p>
+            <p> This lessons will introduce you to the basics of CSS and reinforce your knowledge with quizzes and examples.</p>
+
             
             <h2>Why use CSS?</h2>
             <p>CSS solves a big problem: <strong>HTML was never intended to contain tags for formatting a web page!</strong></p>
