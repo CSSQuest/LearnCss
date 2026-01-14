@@ -30,71 +30,8 @@
     <div class="docs-layout">
 
         <aside class="docs-sidebar">
-            <nav class="docs-nav">
-                <h3>CSS Lessons</h3>
-                <ul>
-                    <li><a href="?id=intro" id="link-intro">1. Introduction</a></li>
-                    <li><a href="?id=selectors" id="link-selectors">2. CSS Selectors</a></li>
-                    <li><a href="?id=howto" id="link-howto">3. How to Add CSS</a></li>
-                    <li><a href="?id=colors" id="link-colors">4. CSS Colors</a></li>
-                    <li><a href="?id=backgrounds" id="link-backgrounds">5. CSS Backgrounds</a></li>
-                    <li><a href="?id=borders" id="link-borders">6. CSS Borders</a></li>
-                    <li><a href="?id=margin" id="link-margin">7. CSS Margin</a></li>
-                    <li><a href="?id=padding" id="link-padding">8. CSS Padding</a></li>
-                    <li><a href="?id=dimension" id="link-dimension">9. CSS Dimension</a></li>
-                    <li><a href="?id=boxmodel" id="link-boxmodel">10. CSS Box Model</a></li>
-                    <li><a href="?id=outline" id="link-outline">11. CSS Outline</a></li>
-                    <li><a href="?id=text" id="link-text">12. CSS Text</a></li>
-                    <li><a href="?id=fonts" id="link-fonts">13. CSS Fonts</a></li>
-                    <li><a href="?id=icons" id="link-icons">14. CSS Icons</a></li>
-                    <li><a href="?id=links" id="link-links">15. CSS Links</a></li>
-                    <li><a href="?id=lists" id="link-lists">16. CSS Lists</a></li>
-                    <li><a href="?id=tables" id="link-tables">17. CSS Tables</a></li>
-                    <li><a href="?id=display" id="link-display">18. Display </a></li>
-                    <li><a href="?id=position" id="link-position">19. Positioning</a></li>
-                    <li><a href="?id=float" id="link-float">20. CSS Float</a></li>
-                    <li><a href="?id=align" id="link-align">21. CSS Align</a></li>
-                    <li><a href="?id=combinators" id="link-combinators">22. CSS Combinators</a></li>
-                    <li><a href="?id=pseudo" id="link-pseudo">23. CSS Pseudo Selectors</a></li>
-                    <li><a href="?id=image_transparency" id="link-image_transparency">24. Image Transparency</a></li>
-                    <li><a href="?id=attribute_selectors" id="link-attribute_selectors">25. Attribute Selectors</a></li>
-                    <li><a href="?id=forms" id="link-forms">26. CSS Forms</a></li>
-                    <li><a href="?id=counters" id="link-counters">27. CSS Counters</a></li>
-                    <li><a href="?id=units" id="link-units">28. CSS Units</a></li>
-                    <li><a href="?id=inheritance" id="link-inheritance">29. CSS Inheritance</a></li>
-                    <li><a href="?id=website_layout" id="link-website_layout">30. CSS Website Layout</a></li>
-
-
-
-
-
-
-
-
-
-
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </ul>
-
-                <h3 style="margin-top: 2rem;">Layout</h3>
-                <ul>
-                    <li><a href="?id=flexbox" id="link-flexbox">5. Flexbox</a></li>
-                    <li><a href="?id=grid" id="link-grid">6. CSS Grid</a></li>
-                </ul>
-            </nav>
+            <nav class="docs-nav" id="sidebar-nav">
+                </nav>
         </aside>
 
         <main class="docs-content" id="content-area">
@@ -103,126 +40,181 @@
     </div>
 
     <script src="lessons.js"></script>
-    <script>
-        // Sayfa yüklendiğinde çalışır
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. URL'deki ?id=... kısmını al
-            const urlParams = new URLSearchParams(window.location.search);
-            const lessonId = urlParams.get('id') || 'intro'; // Eğer id yoksa varsayılan 'intro' aç
 
-            // 2. İçeriği Yükle
-            loadLesson(lessonId);
+    <script>
+        // ---------------------------------------------------------
+        // 1. SIDEBAR OLUŞTURMA
+        // ---------------------------------------------------------
+        function generateSidebar() {
+            const navContainer = document.getElementById('sidebar-nav');
+            if (typeof lessonsData === 'undefined' || !navContainer) return;
+            navContainer.innerHTML = ''; 
+
+            const categories = new Set();
+            const groupedLessons = {};
+            let globalCounter = 1;
+
+            Object.keys(lessonsData).forEach(key => {
+                const lesson = lessonsData[key];
+                const category = lesson.category || 'General';
+
+                if (!categories.has(category)) {
+                    categories.add(category);
+                    groupedLessons[category] = [];
+                }
+                groupedLessons[category].push({
+                    id: key, title: lesson.title, number: globalCounter++
+                });
+            });
+
+            categories.forEach(category => {
+                const h3 = document.createElement('h3');
+                h3.textContent = category;
+                navContainer.appendChild(h3);
+                const ul = document.createElement('ul');
+                groupedLessons[category].forEach(item => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = `?id=${item.id}`;
+                    a.id = `link-${item.id}`;
+                    a.textContent = `${item.number}. ${item.title}`;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+                navContainer.appendChild(ul);
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 2. DERSİ YÜKLEME
+        // ---------------------------------------------------------
+        function loadLesson(id) {
+            const contentArea = document.getElementById('content-area');
+            const lesson = lessonsData[id];
+            
+            if (!lesson) {
+                contentArea.innerHTML = `<h1>404</h1><p>Lesson not found.</p>`;
+                return;
+            }
+
+            // Navigasyon Mantığı
+            const keys = Object.keys(lessonsData);
+            const idx = keys.indexOf(id);
+            const prevKey = keys[idx - 1];
+            const nextKey = keys[idx + 1];
+            const prev = prevKey ? lessonsData[prevKey] : null;
+            const next = nextKey ? lessonsData[nextKey] : null;
+
+            const navHTML = `
+                <div class="lesson-nav">
+                    ${prev ? `<a href="?id=${prevKey}" class="btn btn-outline">← ${prev.title}</a>` : '<div></div>'}
+                    ${next ? `<a href="?id=${nextKey}" class="btn btn-primary">${next.title} →</a>` : '<div></div>'}
+                </div>`;
+
+            contentArea.innerHTML = `
+                <span class="lesson-tag">${lesson.category}</span>
+                <h1>${lesson.title}</h1>
+                ${lesson.content}
+                ${navHTML}
+            `;
+
+            // Sayfa işlemlerini yap
+            enhanceExamples();
+            handleManualButtons();
+            highlightActiveLink(id);
+
+            window.scrollTo(0, 0);
+        }
+
+        // ---------------------------------------------------------
+        // 3. YARDIMCI FONKSİYONLAR
+        // ---------------------------------------------------------
+        
+        function highlightActiveLink(id) {
+            document.querySelectorAll('.docs-nav a').forEach(a => a.classList.remove('active'));
+            const active = document.getElementById(`link-${id}`);
+            if (active) {
+                active.classList.add('active');
+                active.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Kod bloklarına otomatik kart ve buton ekler
+        function enhanceExamples() {
+            document.querySelectorAll('.code-block').forEach(block => {
+                if (block.closest('.example-card')) return;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'example-card';
+                
+                const title = document.createElement('h3');
+                title.textContent = 'Example';
+
+                const btn = document.createElement('a');
+                btn.href = 'editor.html';
+                btn.className = 'try-btn open-editor';
+                btn.textContent = 'Open Live Editor »';
+                btn.target = '_blank';
+
+                // Veriyi güvene al (wrapper'a taşı)
+                wrapper.dataset.html = block.dataset.html || "";
+                // Eğer data-css yoksa ve içerik CSS ise textContent'i kullan (Intro dersi için)
+                wrapper.dataset.css = block.dataset.css || block.textContent || "";
+
+                block.parentNode.insertBefore(wrapper, block);
+                wrapper.appendChild(title);
+                wrapper.appendChild(block);
+                wrapper.appendChild(btn);
+            });
+        }
+
+        // Manuel eklenmiş butonları da yakala
+        function handleManualButtons() {
+            document.querySelectorAll('a[href="editor.html"]').forEach(btn => {
+                btn.target = "_blank";
+                btn.classList.add('open-editor');
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 4. VERİ GÖNDERME (DÜZELTİLMİŞ MANTIK)
+        // ---------------------------------------------------------
+        document.addEventListener("click", function (e) {
+            const btn = e.target.closest(".open-editor");
+            if (!btn) return;
+
+            e.preventDefault();
+
+            const targetId = btn.dataset.target;
+            let block = null;
+
+            if (targetId) {
+                block = document.getElementById(targetId);
+            } else {
+                block = btn.closest(".example-card")?.querySelector(".code-block");
+            }
+
+            if (!block) return;
+
+            const htmlVal = block.dataset.html || "";
+            const cssVal = block.dataset.css || "";
+
+            localStorage.setItem("editorHTML", htmlVal);
+            localStorage.setItem("editorCSS", cssVal);
+
+            window.open("editor.html", "_blank");
         });
 
-    document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".open-editor").forEach(btn => {
-    btn.setAttribute("target", "_blank");
-    btn.setAttribute("rel", "noopener noreferrer");
-  });
-});
 
-
-function loadLesson(id) {
-    const nextLesson = lessonsData[id].next ? lessonsData[lessonsData[id].next] : null;
-    const contentArea = document.getElementById('content-area');
-    const lesson = lessonsData[id];
-
-    if (lesson) {
-        contentArea.innerHTML = `
-            <span class="lesson-tag">${lesson.category}</span>
-            <h1>${lesson.title}</h1>
-            ${lesson.content}
-            
-            <div class="lesson-nav">
-                ${lesson.prev ? `<a href="?id=${lesson.prev}" class="btn btn-outline">← Previous Lesson</a>` : '<div></div>'}
-               ${nextLesson? `<a href="?id=${lesson.next}" class="btn btn-primary">Next: ${nextLesson.title} →</a>`: '<div></div>'}
-            </div>
-        `;
-
-        enhanceExamples();
-
-        document.querySelectorAll(".open-editor").forEach(a => {
-        a.setAttribute("target", "_blank");
-        a.setAttribute("rel", "noopener noreferrer");
-});
-
-
-        document.querySelectorAll('.docs-nav a').forEach(link => link.classList.remove('active'));
-        const activeLink = document.getElementById(`link-${id}`);
-        if (activeLink) activeLink.classList.add('active');
-
-        window.scrollTo(0, 0);
-
-    } else {
-        contentArea.innerHTML = `<h1>404</h1><p>Lesson not found.</p>`;
-    }
-}
-
-// Try it Yourself tıklanınca örneğin HTML/CSS'ini editor'a gönder
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest(".open-editor");
-  if (!btn) return;
-
-  const block = btn.closest(".code-block");
-  if (!block) return;
-
-  const html = block.dataset.html;
-  const css  = block.dataset.css;
-
-  // HTML yoksa eskiyi ezme: fallback devreye girsin
-  if (html && html.trim()) localStorage.setItem("editorHTML", html);
-  else localStorage.removeItem("editorHTML");
-
-  // CSS yoksa eskiyi ezme: fallback devreye girsin
-  if (css && css.trim()) localStorage.setItem("editorCSS", css);
-  else localStorage.removeItem("editorCSS");
-});
-
-
-function enhanceExamples() {
-  document.querySelectorAll('.code-block').forEach(block => {
-    if (block.closest('.example-card')) return;
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'example-card';
-
-    const title = document.createElement('h3');
-    title.textContent = 'Example';
-
-    const button = document.createElement('a');
-    button.href = 'editor.html';
-    button.className = 'try-btn open-editor';
-    button.textContent = 'Open Live Editor »';
-
-    block.parentNode.insertBefore(wrapper, block);
-    wrapper.appendChild(title);
-    wrapper.appendChild(block);
-    wrapper.appendChild(button);
-  });
-}
-
-
-    document.addEventListener("click", function (e) {
-    const btn = e.target.closest(".open-editor");
-    if (!btn) return;
-
-
-    const card = btn.closest(".example-card");
-    if (!card) return;
-
-
-    const block = card.querySelector(".code-block");
-    if (!block) return;
-
-
-    localStorage.setItem("editorHTML", block.dataset.html || "");
-    localStorage.setItem("editorCSS", block.dataset.css || "");
-    });
-
-
+        // BAŞLAT
+        document.addEventListener('DOMContentLoaded', () => {
+            generateSidebar();
+            const params = new URLSearchParams(window.location.search);
+            loadLesson(params.get('id') || 'intro');
+        });
     </script>
 
-        <footer class="site-footer">
+    <footer class="site-footer">
         <div class="container footer-inner">
             <p>© <span id="year"></span> NextHive — LearnCSS</p>
             <nav aria-label="Footer">
@@ -234,8 +226,7 @@ function enhanceExamples() {
     </footer>
 
     <script>
-        document.getElementById('year').textContent=new Date().getFullYear();
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
-
 </html>

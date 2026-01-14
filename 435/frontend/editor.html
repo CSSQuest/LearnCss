@@ -17,7 +17,7 @@
             <nav class="site-nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#tutorials">Tutorials</a></li>
+                    <li><a href="tutorials.html">Tutorials</a></li>
                     <li><a href="editor.html" class="active">Editor</a></li>
                     <li><a href="about.html">About</a></li>
                 </ul>
@@ -69,25 +69,27 @@
         <div class="preview-panel" id="previewPanel">
             <div class="editor-toolbar preview-header">
                 <span class="lang-label preview">Preview</span>
-                <button id="refresh-btn" style="background:none; border:none; color:inherit; cursor:pointer;">↻</button>
+                <button id="refresh-btn" style="background:none; border:none; color:inherit; cursor:pointer; font-size:1.2rem;">↻</button>
             </div>
-            <iframe id="preview-frame"></iframe>
+            <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin"></iframe>
             <div class="iframe-shield"></div>
         </div>
 
     </main>
 
     <script>
-        // --- 1. LIVE PREVIEW ---
-        const htmlCursor = document.getElementById("htmlCursor");
-        const cssCursor = document.getElementById("cssCursor");
+        // --- 1. GLOBAL DEĞİŞKENLER ---
         const htmlInput = document.getElementById('html-code');
         const cssInput = document.getElementById('css-code');
         const previewFrame = document.getElementById('preview-frame');
         const refreshBtn = document.getElementById('refresh-btn');
+        
+        const htmlHL = document.getElementById("htmlHL");
+        const cssHL = document.getElementById("cssHL");
+        const htmlCursor = document.getElementById("htmlCursor");
+        const cssCursor = document.getElementById("cssCursor");
 
-
-
+        // --- 2. PREVIEW GÜNCELLEME ---
         function updatePreview() {
             const html = htmlInput.value;
             const css = `<style>${cssInput.value}</style>`;
@@ -97,74 +99,26 @@
             doc.close();
         }
 
-        htmlInput.addEventListener('input', updatePreview);
-        cssInput.addEventListener('input', updatePreview);
+        htmlInput.addEventListener('input', () => {
+            updatePreview();
+            syncHighlight(htmlInput, htmlHL, htmlCursor);
+        });
+        cssInput.addEventListener('input', () => {
+            updatePreview();
+            syncHighlight(cssInput, cssHL, cssCursor);
+        });
         refreshBtn.addEventListener('click', updatePreview);
-        window.addEventListener("load", () => {
-  const storedHTML = localStorage.getItem("editorHTML");
-  const storedCSS  = localStorage.getItem("editorCSS");
 
-  const fallbackHTML = `<div class="container">
-  <div class="card">
-    <h2>Hello CSS!</h2>
-    <p>Type animation + line highlight ✨</p>
-    <button>Hover Me</button>
-  </div>
-</div>`;
-
-  const fallbackCSS = `body {
-  font-family: system-ui;
-  background: #f0f2f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-}
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  text-align: center;
-}
-button {
-  background: #325dff;
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-button:hover { opacity: 0.9; }`;
-
-  const isEmptyHTML = !storedHTML || !storedHTML.trim();
-  const isEmptyCSS  = !storedCSS  || !storedCSS.trim() || storedCSS.trim() === "/* CSS here */";
-
-  htmlInput.value = isEmptyHTML ? fallbackHTML : storedHTML;
-  cssInput.value  = isEmptyCSS  ? fallbackCSS  : storedCSS;
-
-  localStorage.removeItem("editorHTML");
-  localStorage.removeItem("editorCSS");
-
-
-  updatePreview();
-});
-
-
-        // --- 2. RESIZER LOGIC (HASSAS AYARLI) ---
+        // --- 3. RESIZER LOGIC ---
         const workspace = document.getElementById('workspace');
         const codePanel = document.getElementById('codePanel');
-        const htmlSection = document.getElementById('htmlSection'); // Yüksekliği değişecek olan
-        
-        const resizerX = document.getElementById('resizerX'); // Sol-Sağ
-        const resizerY = document.getElementById('resizerY'); // Alt-Üst
+        const htmlSection = document.getElementById('htmlSection'); 
+        const resizerX = document.getElementById('resizerX'); 
+        const resizerY = document.getElementById('resizerY'); 
 
         let isResizingX = false;
         let isResizingY = false;
 
-        // Olayları Başlat
         resizerX.addEventListener('mousedown', (e) => {
             isResizingX = true;
             document.body.classList.add('is-resizing');
@@ -177,132 +131,130 @@ button:hover { opacity: 0.9; }`;
             e.preventDefault();
         });
 
-        // Mouse Hareketi
         document.addEventListener('mousemove', (e) => {
             if (!isResizingX && !isResizingY) return;
 
-            // --- X EKSENİ (Sol/Sağ Panel Genişliği) ---
             if (isResizingX) {
                 const workspaceRect = workspace.getBoundingClientRect();
-                // Mouse'un workspace içindeki X konumu
                 const newWidth = e.clientX - workspaceRect.left;
-                
-                // Min-Max Sınırları (Piksel cinsinden)
                 if (newWidth > 150 && newWidth < workspaceRect.width - 150) {
-                    // Yüzde yerine piksel de kullanabiliriz ama responsive kalması için % çevirelim
                     const newWidthPercent = (newWidth / workspaceRect.width) * 100;
                     codePanel.style.width = `${newWidthPercent}%`;
                 }
             }
 
-            // --- Y EKSENİ (HTML/CSS Yüksekliği) ---
             if (isResizingY) {
                 const panelRect = codePanel.getBoundingClientRect();
-                // Mouse'un codePanel'in üstünden ne kadar aşağıda olduğu
                 const newHeight = e.clientY - panelRect.top;
-
-                // Min-Max Sınırları
                 if (newHeight > 100 && newHeight < panelRect.height - 100) {
-                    // Burada piksel kullanmak flex yapısında daha kararlıdır
                     htmlSection.style.height = `${newHeight}px`;
                 }
             }
         });
 
-        // Bırakma
         document.addEventListener('mouseup', () => {
             isResizingX = false;
             isResizingY = false;
             document.body.classList.remove('is-resizing');
         });
 
-                // ===== 3) LOAD + TYPE ANIMATION + LINE HIGHLIGHT =====
+        // --- 4. HIGHLIGHT & TYPING EFFECT MANTIĞI ---
+        
         function getLineHeight(textarea) {
-        const cs = window.getComputedStyle(textarea);
-        const lh = parseFloat(cs.lineHeight);
-        // line-height "normal" gelirse fallback:
-        return Number.isFinite(lh) ? lh : 22;
+            const cs = window.getComputedStyle(textarea);
+            const lh = parseFloat(cs.lineHeight);
+            return Number.isFinite(lh) ? lh : 22;
         }
 
-        function updateHighlight(textarea, hlEl, cursorEl, lineIndex, colIndex = 0) {
-        const lh = getLineHeight(textarea);
-        hlEl.style.setProperty("--hl-h", `${lh}px`);
+        function updateHighlightUI(textarea, hlEl, cursorEl, lineIndex, colIndex = 0) {
+            const lh = getLineHeight(textarea);
+            hlEl.style.setProperty("--hl-h", `${lh}px`);
 
-        const top = 10 + (lineIndex * lh) - textarea.scrollTop;
-        hlEl.style.setProperty("--hl-top", `${top}px`);
+            const top = 10 + (lineIndex * lh) - textarea.scrollTop;
+            hlEl.style.setProperty("--hl-top", `${top}px`);
 
-        // Cursor pozisyonu
-        const charWidth = 8; // ortalama karakter genişliği
-        const left = 14 + (colIndex * charWidth);
+            // Cursor pozisyonu (basit hesaplama)
+            const charWidth = 8.5; // Monospace font ortalama genişlik
+            const left = 14 + (colIndex * charWidth);
 
-        cursorEl.style.top = `${top}px`;
-        cursorEl.style.left = `${left}px`;
+            cursorEl.style.top = `${top}px`;
+            cursorEl.style.left = `${left}px`;
         }
 
-
-        async function typeInto(textarea, hlEl, cursorEl, text, speedMs = 6) {
-        textarea.value = "";
-        updateHighlight(textarea, hlEl, cursorEl, 0, 0);
-
-        let lineIndex = 0;
-        let colIndex = 0;
-
-        for (let i = 0; i < text.length; i++) {
-            const ch = text[i];
-            textarea.value += ch;
-
-            if (ch === "\n") {
-            lineIndex++;
-            colIndex = 0;
-            await new Promise(r => setTimeout(r, speedMs * 4)); // satır sonunda minik duraklama
-            } else {
-            colIndex++;
-            }
-
-            textarea.scrollTop = textarea.scrollHeight;
-
-            updateHighlight(textarea, hlEl, cursorEl, lineIndex, colIndex);
-            updatePreview();
-
-            await new Promise(r => setTimeout(r, speedMs));
-        }
+        function syncHighlight(textarea, hlEl, cursorEl) {
+            // Mevcut cursor pozisyonuna göre highlight'ı güncelle
+            const textUpToCursor = textarea.value.substring(0, textarea.selectionStart);
+            const lineIndex = textUpToCursor.split("\n").length - 1;
+            // Kolon indeksini bulmak için son satırın uzunluğuna bakabiliriz ama şimdilik sadece satır senkronu yeterli
+            updateHighlightUI(textarea, hlEl, cursorEl, lineIndex, 0);
         }
 
-
+        // Scroll senkronizasyonu
         function bindScrollSync(textarea, hlEl, cursorEl) {
-        textarea.addEventListener("scroll", () => {
-            const lineIndex = textarea.value.split("\n").length - 1;
-            updateHighlight(textarea, hlEl, cursorEl, lineIndex, 0);
-        });
+            textarea.addEventListener("scroll", () => {
+                // Scroll olduğunda highlight pozisyonunu güncelle
+                // Basitçe o anki satırı koru ama scroll offsetini hesaba kat
+                // (Daha gelişmiş editörlerde bu daha karmaşıktır, burada basit tutuyoruz)
+                hlEl.style.setProperty("--hl-top", `${10 - textarea.scrollTop}px`);
+                cursorEl.style.marginTop = `-${textarea.scrollTop}px`; // Cursor'ı kaydır
+            });
+            
+            // Tıklama ile highlight güncelleme
+            textarea.addEventListener("click", () => syncHighlight(textarea, hlEl, cursorEl));
+            textarea.addEventListener("keyup", () => syncHighlight(textarea, hlEl, cursorEl));
         }
 
+        async function typeInto(textarea, hlEl, cursorEl, text, speedMs = 5) {
+            textarea.value = "";
+            updateHighlightUI(textarea, hlEl, cursorEl, 0, 0);
 
-window.addEventListener("load", async () => {
-  const htmlHL = document.getElementById("htmlHL");
-  const cssHL = document.getElementById("cssHL");
+            let lineIndex = 0;
+            let colIndex = 0;
 
-  // Cursor kullandıysan (HTML'e eklediysen) bunlar gerekli:
-  const htmlCursor = document.getElementById("htmlCursor");
-  const cssCursor = document.getElementById("cssCursor");
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                textarea.value += ch;
 
-  // Eğer bindScrollSync'i cursor'lu yaptıysan:
-  bindScrollSync(htmlInput, htmlHL, htmlCursor);
-  bindScrollSync(cssInput, cssHL, cssCursor);
+                if (ch === "\n") {
+                    lineIndex++;
+                    colIndex = 0;
+                    // Satır sonu beklemesi
+                    if(speedMs > 0) await new Promise(r => setTimeout(r, speedMs * 3));
+                } else {
+                    colIndex++;
+                }
 
-  // tutorials.html tıklamasından gelen kodlar
-  const storedHTML = localStorage.getItem("editorHTML");
-  const storedCSS = localStorage.getItem("editorCSS");
+                textarea.scrollTop = textarea.scrollHeight;
+                updateHighlightUI(textarea, hlEl, cursorEl, lineIndex, colIndex);
+                
+                // Her karakterde önizlemeyi güncellemek yorabilir, 
+                // ama efekt için güzeldir. Performans sorunu olursa burayı döngü dışına al.
+                if (i % 5 === 0) updatePreview(); 
 
-  // Eğer storage boşsa, fallback demo
-  const fallbackHTML = `<div class="container">
+                if(speedMs > 0) await new Promise(r => setTimeout(r, speedMs));
+            }
+            updatePreview(); // Döngü bitince son kez güncelle
+        }
+
+        // --- 5. ANA YÜKLEME (INIT) ---
+        window.addEventListener("load", async () => {
+            bindScrollSync(htmlInput, htmlHL, htmlCursor);
+            bindScrollSync(cssInput, cssHL, cssCursor);
+
+            // 1. Veriyi Oku
+            const storedHTML = localStorage.getItem("editorHTML");
+            const storedCSS = localStorage.getItem("editorCSS");
+
+            // 2. Fallback (Varsayılan) Kodlar
+            const fallbackHTML = `<div class="container">
   <div class="card">
     <h2>Hello CSS!</h2>
-    <p>Type animation + line highlight ✨</p>
+    <p>Welcome to the Live Editor.</p>
     <button>Hover Me</button>
   </div>
 </div>`;
 
-  const fallbackCSS = `body {
+            const fallbackCSS = `body {
   font-family: system-ui;
   background: #0b1220;
   color: white;
@@ -330,30 +282,28 @@ button {
 }
 button:hover { opacity: 0.9; }`;
 
-  // HTML boşsa fallback
-  const isEmptyHTML = !storedHTML || !storedHTML.trim();
-  const finalHTML = isEmptyHTML ? fallbackHTML : storedHTML;
+            // 3. Hangi kodu kullanacağımıza karar verelim
+            // Eğer localStorage boşsa veya sadece boşluksa fallback kullan
+            const hasHTML = storedHTML && storedHTML.trim().length > 0;
+            const hasCSS = storedCSS && storedCSS.trim().length > 0;
 
-  // CSS boşsa veya placeholder gibi ise fallback
-  const isEmptyCSS =
-    !storedCSS ||
-    !storedCSS.trim() ||
-    storedCSS.trim() === "/* CSS here */" ||
-    storedCSS.trim() === "/* CSS Here */";
+            const finalHTML = hasHTML ? storedHTML : fallbackHTML;
+            // CSS bazen sadece yorum satırı olabilir, onu da boş saymayalım
+            const finalCSS = (hasCSS || storedCSS === "") ? storedCSS : fallbackCSS;
 
-  const finalCSS = isEmptyCSS ? fallbackCSS : storedCSS;
+            // 4. Daktilo Efektiyle Yaz (Sırayla)
+            // Hız: 8ms. Eğer çok uzunsa hızı 0 yapıp anında yazdırabilirsin.
+            await typeInto(htmlInput, htmlHL, htmlCursor, finalHTML, 8);
+            await typeInto(cssInput, cssHL, cssCursor, finalCSS, 8);
 
-        // Typing effect (ikisi aynı anda akmasın diye sırayla yaptım)
-        await typeInto(htmlInput, htmlHL, htmlCursor, finalHTML, 12);
-        await typeInto(cssInput, cssHL, cssCursor, finalCSS, 10);
-
-        // Bitti, normal canlı edit çalışmaya devam
-        updatePreview();
+            // 5. İş bitti, localStorage'ı temizle ki sonraki girişlerde karışmasın
+            localStorage.removeItem("editorHTML");
+            localStorage.removeItem("editorCSS");
         });
 
     </script>
 
-        <footer class="site-footer">
+    <footer class="site-footer">
         <div class="container footer-inner">
             <p>© <span id="year"></span> NextHive — LearnCSS</p>
             <nav aria-label="Footer">

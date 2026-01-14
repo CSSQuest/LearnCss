@@ -1,6 +1,7 @@
+
 const lessonsData = {
-    
-  "intro": {
+
+"intro": {
         title: "Introduction to CSS",
         category: "Basics",
         prev: null,
@@ -18,11 +19,17 @@ const lessonsData = {
             <h2>CSS Syntax</h2>
             <p>A CSS rule-set consists of a selector and a declaration block:</p>
             
-            <div class="code-block">
-h1 {
-  color: blue;
-  font-size: 12px;
-}
+            <div class="code-block" id="intro-1"
+                data-html="<h1>Hello CSS</h1>
+            <p>Change the CSS values above to see magic!</p>"
+                data-css="h1 {
+              color: blue;
+              font-size: 24px;
+            }">
+            <pre><code>h1 {
+              color: blue;
+              font-size: 24px;
+            }</code></pre>
             </div>
             
             <p>In this example, <code>h1</code> is the selector, and everything inside the curly braces <code>{}</code> is the declaration block.</p>
@@ -33,11 +40,11 @@ h1 {
 
             <p>In this example, <code>color</code> is the property, and <code>blue</code> is the value. They are separated by a colon.</p>
             
-            <a href="editor.html" class="btn btn-outline" style="margin-top:1rem">Open in Live Editor →</a>
+            <a href="editor.html" class="btn btn-outline open-editor" data-target="intro-1">Open in Live Editor →</a>
         `
-    },
+    }, 
 
-  "selectors": {
+"selectors": {
         title: "CSS Selectors",
         category: "Basics",
         prev: "intro",
@@ -67,7 +74,7 @@ h1 {
   </div>
 
   <a href="editor.html" class="try-btn open-editor">
-    Try it Yourself »
+    Open live editor »
   </a>
 
 </div>
@@ -75,7 +82,7 @@ h1 {
 <h2>2. The Class Selector</h2>
 <p>To select elements with a specific class, write a period (.) character, followed by the class name.</p>
 
-<div class="code-block"
+<div class="code-block" id="selector-1"
      data-html="<p class='center'>This paragraph will be centered.</p>
 <p>This paragraph is not affected.</p>"
      data-css="/* Selects all elements with class=&quot;center&quot; */
@@ -190,7 +197,7 @@ h3, p, div {
  `
     },
 
-  "howto": {
+"howto": {
           title: "How to",
           category: "Basics",
           prev: "grouping",
@@ -617,714 +624,363 @@ p {
   `
 },
 
-backgrounds: {
-  title: "CSS Backgrounds",
+"units": {
+  title: "CSS Units",
   category: "Basics",
-  prev: "colors",
-  next: "borders",
+  prev: "counters",
+  next: "rwd", // sende yoksa null yap
   content: `
-    <h2>CSS Backgrounds</h2>
+    <h2>CSS Units</h2>
 
     <p>
-      CSS provides several properties for setting the background of an element.
-      The most common ones include <code>background-color</code>,
-      <code>background-image</code>, <code>background-repeat</code>, and
-      <code>background-size</code>.
+      CSS uses different units to express length values (like <code>width</code>, <code>margin</code>,
+      <code>padding</code>, <code>font-size</code>, etc.). A length is a number + unit such as
+      <code>20px</code>, <code>2rem</code>, <code>50%</code>. :contentReference[oaicite:1]{index=1}
     </p>
 
     <p style="color: blue;">
-      The <code>background</code> shorthand can also set multiple background properties at once.
+      CSS units are grouped into <strong>absolute</strong> and <strong>relative</strong> units. :contentReference[oaicite:2]{index=2}
     </p>
 
     <!-- ===================== -->
-    <!-- background-color -->
+    <!-- 1) Absolute units -->
     <!-- ===================== -->
-
-    <h3>1. Background Color</h3>
+    <h3>1. Absolute Units</h3>
     <p>
-      The <code>background-color</code> property sets the background color of an element.
+      Absolute units include <code>px</code>, <code>cm</code>, <code>mm</code>, <code>in</code>,
+      <code>pt</code>, <code>pc</code>. On screens, <code>px</code> is the most common absolute unit. :contentReference[oaicite:3]{index=3}
     </p>
 
     <div class="code-block"
-         data-html="<div class='bg1'>Box with background color</div>"
-         data-css=".bg1 {
-  background-color: lightblue;
-  padding: 16px;
-  border-radius: 8px;
-}">
+         data-html="<div class='abs px'>Width: 240px</div>
+<div class='abs pt'>Font: 18pt</div>"
+         data-css=".abs{
+  border: 2px solid #111827;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 10px 0;
+  background: #f9fafb;
+}
+.px{ width: 240px; }
+.pt{ font-size: 18pt; }">
 
-<pre><code>/* background-color example */
-.bg1 {
-  background-color: lightblue;
-  padding: 16px;
-  border-radius: 8px;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Use <code>background-color</code> to add solid color backgrounds to elements.
-    </p>
-
-    <!-- ===================== -->
-    <!-- background-image -->
-    <!-- ===================== -->
-
-    <h3>2. Background Image</h3>
-    <p>
-      The <code>background-image</code> property sets an image as the background.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='bg2'>Hello with image</div>"
-         data-css=".bg2 {
-  background-image: url('https://www.w3schools.com/css/img_lights.jpg');
-  padding: 36px;
-  color: white;
-  text-shadow: 1px 1px #000;
-}">
-
-<pre><code>/* background-image example */
-.bg2 {
-  background-image: url('https://www.w3schools.com/css/img_lights.jpg');
-  padding: 36px;
-  color: white;
-  text-shadow: 1px 1px #000;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Replace the URL with your own image path to change the background image.
-    </p>
-
-    <!-- ===================== -->
-    <!-- background-repeat -->
-    <!-- ===================== -->
-
-    <h3>3. Background Repeat</h3>
-    <p>
-      By default, background images repeat. You can control this with
-      <code>background-repeat</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='bg3'>No repeat</div>"
-         data-css=".bg3 {
-  background-image: url('https://www.w3schools.com/css/img_forest.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 40px;
-  color: white;
-  text-shadow: 1px 1px #000;
-}">
-
-<pre><code>/* background-repeat example */
-.bg3 {
-  background-image: url('https://www.w3schools.com/css/img_forest.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Use <code>no-repeat</code> and <code>background-size</code> to control how the image fills the element.
-    </p>
-
-    <!-- ===================== -->
-    <!-- background shorthand -->
-    <!-- ===================== -->
-
-    <h3>4. Background Shorthand</h3>
-    <p>
-      The <code>background</code> shorthand can set multiple background properties at once.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='bg4'>Shorthand Example</div>"
-         data-css=".bg4 {
-  background: lightgreen url('https://www.w3schools.com/css/img_mountains.jpg') no-repeat center/cover;
-  padding: 40px;
-  color: white;
-  text-shadow: 1px 1px #000;
-}">
-
-<pre><code>/* background shorthand */
-.bg4 {
-  background: lightgreen url('https://www.w3schools.com/css/img_mountains.jpg')
-              no-repeat center/cover;
-}</code></pre>
-
+<pre><code>/* absolute units */
+.px { width: 240px; }
+.pt { font-size: 18pt; }</code></pre>
     </div>
 
     <p style="color: blue;">
-      Tip: Using shorthand saves space and can make CSS cleaner.
+      Note: Physical units (cm, mm, in, pt) are more meaningful for print; for screens, px is common. :contentReference[oaicite:4]{index=4}
+    </p>
+
+    <!-- ===================== -->
+    <!-- 2) Percent -->
+    <!-- ===================== -->
+    <h3>2. Percentage (<code>%</code>)</h3>
+    <p>
+      Percentages are relative to the parent (containing block). Great for responsive widths.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='parent'>
+  <div class='child'>50% width</div>
+</div>"
+         data-css=".parent{
+  border: 2px dashed #9ca3af;
+  padding: 12px;
+}
+.child{
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  background: #dbeafe;
+  border: 2px solid #2563eb;
+  font-weight: 700;
+}">
+
+<pre><code>/* % is relative to parent */
+.child { width: 50%; }</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 3) em -->
+    <!-- ===================== -->
+    <h3>3. <code>em</code> (Relative to Element Font Size)</h3>
+    <p>
+      <code>em</code> is relative to the font-size of the element (or its parent, depending on the property).
+      Commonly used for spacing around text.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='em-wrap'>
+  <p class='em-text'>Padding is 1em</p>
+</div>"
+         data-css=".em-wrap{
+  font-size: 20px;
+}
+.em-text{
+  padding: 1em; /* 1em = 20px here */
+  border: 2px solid #16a34a;
+  border-radius: 10px;
+  background: #dcfce7;
+  margin: 0;
+}">
+
+<pre><code>/* em: based on font-size */
+.em-wrap { font-size: 20px; }
+.em-text { padding: 1em; }</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 4) rem -->
+    <!-- ===================== -->
+    <h3>4. <code>rem</code> (Relative to Root Font Size)</h3>
+    <p>
+      <code>rem</code> is relative to the root element (<code>html</code>) font-size.
+      This makes sizing more predictable across a whole page. :contentReference[oaicite:5]{index=5}
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='rem-card'>
+  <h3>Title (1.5rem)</h3>
+  <p>Text (1rem)</p>
+</div>"
+         data-css="html{ font-size: 16px; }
+
+.rem-card{
+  border: 2px solid #a855f7;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #faf5ff;
+  max-width: 340px;
+}
+.rem-card h3{
+  margin: 0 0 .5rem;
+  font-size: 1.5rem; /* 24px if html is 16px */
+}
+.rem-card p{
+  margin: 0;
+  font-size: 1rem; /* 16px */
+}">
+
+<pre><code>/* rem: based on html font-size */
+html { font-size: 16px; }
+h3 { font-size: 1.5rem; }
+p  { font-size: 1rem; }</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 5) Viewport units -->
+    <!-- ===================== -->
+    <h3>5. Viewport Units (<code>vw</code>, <code>vh</code>, <code>vmin</code>, <code>vmax</code>)</h3>
+    <p>
+      Viewport units are based on the browser window size:
+      <code>1vw</code> = 1% of viewport width, <code>1vh</code> = 1% of viewport height. :contentReference[oaicite:6]{index=6}
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='vh-box'>Height: 25vh</div>
+<div class='vw-box'>Width: 50vw</div>"
+         data-css=".vh-box{
+  height: 25vh;
+  border-radius: 12px;
+  border: 2px solid #0ea5e9;
+  background: #ecfeff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.vw-box{
+  width: 50vw;
+  max-width: 520px;
+  min-width: 220px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #f97316;
+  background: #fff7ed;
+  font-weight: 800;
+}">
+
+<pre><code>/* viewport units */
+.vh-box { height: 25vh; }
+.vw-box { width: 50vw; }</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 6) Quick guide -->
+    <!-- ===================== -->
+    <h3>Quick Guide: Which Unit Should I Use?</h3>
+    <ul>
+      <li><strong>px</strong>: borders, tiny shadows, very precise values</li>
+      <li><strong>%</strong>: responsive widths relative to parent</li>
+      <li><strong>rem</strong>: typography + spacing system (consistent across site)</li>
+      <li><strong>em</strong>: padding/margins that should scale with the element’s text</li>
+      <li><strong>vw/vh</strong>: hero sections, fullscreen layouts, responsive sizing tied to viewport</li>
+    </ul>
+
+    <p style="color: blue;">
+      Tip: Many modern projects use <code>rem</code> for most spacing & typography, and <code>px</code> for borders.
     </p>
   `
 },
 
-borders: {
-  title: "CSS Borders",
+"inheritance": {
+  title: "CSS Inheritance",
   category: "Basics",
-  prev: "backgrounds",
-  next: "boxmodel",
+  prev: "units",
+  next: "cascade", // sende yoksa null yap
   content: `
-    <h2>CSS Borders</h2>
+    <h2>CSS Inheritance</h2>
 
     <p>
-      Borders in CSS are used to define the outer edges of elements.
-      You can control the <strong>width</strong>, <strong>style</strong>, and <strong>color</strong> of borders.
+      Inheritance in CSS describes what happens when an element does not have a value
+      set for a property. Some properties are <strong>inherited by default</strong>
+      (like <code>color</code> and font properties), while others are not (like <code>border</code>). :contentReference[oaicite:1]{index=1}
     </p>
 
     <p style="color: blue;">
-      Tip: Borders can help visually separate content and improve layout.
+      You can also force inheritance using the <code>inherit</code> keyword for any CSS property. :contentReference[oaicite:2]{index=2}
     </p>
 
     <!-- ===================== -->
-    <!-- Simple Border -->
+    <!-- 1) Inherited: color -->
     <!-- ===================== -->
-    <h3>1. Simple Border</h3>
+    <h3>1. Inherited Example: <code>color</code></h3>
     <p>
-      The <code>border</code> shorthand property can set width, style, and color all at once.
+      <code>color</code> is inherited, so children usually take the parent's text color
+      unless they override it. :contentReference[oaicite:3]{index=3}
     </p>
 
     <div class="code-block"
-         data-html="<div class='box1'>Box with simple border</div>"
-         data-css=".box1 {
-  border: 3px solid black;
-  padding: 16px;
-}">
-
-<pre><code>/* Simple border */
-.box1 {
-  border: 3px solid black;
-  padding: 16px;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This example uses a solid black line as a border around the element.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Colored Border -->
-    <!-- ===================== -->
-    <h3>2. Colored Border</h3>
-    <p>
-      Border colors can be added just like text colors.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='box2'>Colored border</div>"
-         data-css=".box2 {
-  border: 4px solid crimson;
-  padding: 16px;
-}">
-
-<pre><code>/* Border with color */
-.box2 {
-  border: 4px solid crimson;
-  padding: 16px;
-}</code></pre>
-
-    </div>
-
-    <p>
-      You can combine any valid CSS color value with your border style.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Different Border Styles -->
-    <!-- ===================== -->
-    <h3>3. Border Styles</h3>
-    <p>
-      CSS supports many border styles, such as <code>dashed</code>, <code>dotted</code>, and <code>double</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='box3a'>Dashed border</div>
-<div class='box3b'>Dotted border</div>
-<div class='box3c'>Double border</div>"
-         data-css=".box3a {
-  border: 2px dashed #0077cc;
-  padding: 8px;
-}
-.box3b {
-  border: 2px dotted #cc7700;
-  padding: 8px;
-}
-.box3c {
-  border: 4px double #337733;
-  padding: 8px;
-}">
-
-<pre><code>/* Different border styles */
-.box3a {
-  border: 2px dashed #0077cc;
-  padding: 8px;
-}
-.box3b {
-  border: 2px dotted #cc7700;
-  padding: 8px;
-}
-.box3c {
-  border: 4px double #337733;
-  padding: 8px;
-}</code></pre>
-
-    </div>
-
-    <p>
-      These styles show how you can change the visual look of a border easily.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Border Radius -->
-    <!-- ===================== -->
-    <h3>4. Rounded Corners</h3>
-    <p>
-      You can make border corners rounded using <code>border-radius</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='box4'>Rounded border</div>"
-         data-css=".box4 {
-  border: 3px solid #444;
+         data-html="<div class='parent'>
+  Parent text
+  <p>Child paragraph</p>
+  <p>Another child <span>with span</span></p>
+</div>"
+         data-css=".parent{
+  color: #2563eb;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  border: 2px solid #93c5fd;
+  padding: 12px;
   border-radius: 12px;
-  padding: 16px;
 }">
 
-<pre><code>/* Rounded corners */
-.box4 {
-  border: 3px solid #444;
+<pre><code>/* inherited properties */
+.parent {
+  color: #2563eb;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+}</code></pre>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- 2) Not inherited: border -->
+    <!-- ===================== -->
+    <h3>2. Not Inherited Example: <code>border</code></h3>
+    <p>
+      Some properties are not inherited. For example, a parent's border does not
+      automatically apply to children. :contentReference[oaicite:4]{index=4}
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='box'>
+  Parent has a border
+  <p class='child'>Child paragraph (no border by default)</p>
+</div>"
+         data-css=".box{
+  border: 3px solid #111827;
+  padding: 12px;
   border-radius: 12px;
-  padding: 16px;
-}</code></pre>
+}
+.child{
+  margin: 10px 0 0;
+  padding: 10px;
+  background: #f9fafb;
+}">
+
+<pre><code>/* non-inherited example */
+.box { border: 3px solid #111827; }
+/* the child does NOT inherit border */</code></pre>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- 3) Force inheritance: inherit keyword -->
+    <!-- ===================== -->
+    <h3>3. Forcing Inheritance: <code>inherit</code></h3>
+    <p>
+      The <code>inherit</code> keyword tells an element to take the computed value
+      from its parent for that property. It can be used on any property. :contentReference[oaicite:5]{index=5}
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='outer'>
+  Parent has a dotted border
+  <span class='inner'>Child span inherits border</span>
+</div>"
+         data-css=".outer{
+  border: 3px dotted #2563eb;
+  padding: 12px;
+  border-radius: 12px;
+}
+.inner{
+  border: inherit;  /* inherits parent's border */
+  padding: 6px 10px;
+  border-radius: 10px;
+  margin-left: 6px;
+}">
+
+<pre><code>/* inherit keyword */
+.outer { border: 3px dotted #2563eb; }
+.inner { border: inherit; }</code></pre>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- 4) Practical: make links inherit color -->
+    <!-- ===================== -->
+    <h3>4. Practical Tip: Make Links Inherit Text Color</h3>
+    <p>
+      Browsers give links their own default styles. You can make links follow the parent
+      text color with <code>color: inherit</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='theme'>
+  <p>Text in a themed box. <a href='#'>This link inherits color</a></p>
+</div>"
+         data-css=".theme{
+  color: #16a34a;
+  border: 2px solid #86efac;
+  background: #dcfce7;
+  padding: 12px;
+  border-radius: 12px;
+}
+.theme a{
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 700;
+}">
+
+<pre><code>/* make link follow the parent's color */
+.theme { color: #16a34a; }
+.theme a { color: inherit; }</code></pre>
 
     </div>
 
     <p style="color: blue;">
-      Rounded borders create a softer look and are great for buttons and cards.
+      Recap:
+      <strong>Inherited</strong> properties flow from parent to child automatically.
+      <strong>Non-inherited</strong> properties do not.
+      Use <code>inherit</code> to force a property to take the parent's value. :contentReference[oaicite:6]{index=6}
     </p>
   `
 },
 
-margin: {
-  title: "CSS Margin",
-  category: "Box Model",
-  prev: "borders",
-  next: "padding",
-  content: `
-    <h2>CSS Margin</h2>
-
-    <p>
-      The CSS <code>margin</code> property is used to create space around elements.
-      Margin pushes other elements away by adding space outside of the element’s border.
-    </p>
-
-    <p style="color: blue;">
-      Margin does not affect the element’s content area, only the spacing around it.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Individual Sides -->
-    <!-- ===================== -->
-    <h3>1. Margin on One Side</h3>
-    <p>
-      You can set margin for a single side using properties such as
-      <code>margin-top</code>, <code>margin-right</code>, <code>margin-bottom</code>,
-      and <code>margin-left</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='m1'>Margin top 50px</div>"
-         data-css=".m1 {
-  margin-top: 50px;
-  background: lightyellow;
-  padding: 12px;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* margin-top example */
-.m1 {
-  margin-top: 50px;
-  background: lightyellow;
-  padding: 12px;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Only the top margin changes in this example, spacing the element downward.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Margin All Sides -->
-    <!-- ===================== -->
-    <h3>2. Margin on All Sides</h3>
-    <p>
-      The <code>margin</code> shorthand lets you set all margins at once.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='m2'>Margins on all sides</div>"
-         data-css=".m2 {
-  margin: 40px;
-  background: lightcoral;
-  padding: 12px;
-  color: white;
-}">
-
-<pre><code>/* margin all sides */
-.m2 {
-  margin: 40px;
-  background: lightcoral;
-  padding: 12px;
-  color: white;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Setting a single value for <code>margin</code> applies the same spacing
-      on all four sides.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Different Margins -->
-    <!-- ===================== -->
-    <h3>3. Different Margins</h3>
-    <p>
-      You can specify different values for top, right, bottom, and left margins.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='m3'>Top, Right, Bottom, Left</div>"
-         data-css=".m3 {
-  margin: 10px 30px 50px 70px;
-  background: lightseagreen;
-  padding: 12px;
-  color: white;
-}">
-
-<pre><code>/* margin: top right bottom left */
-.m3 {
-  margin: 10px 30px 50px 70px;
-  background: lightseagreen;
-  padding: 12px;
-  color: white;
-}</code></pre>
-
-    </div>
-
-    <p>
-      The values are applied in the order: top → right → bottom → left.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Auto Margin (Centering) -->
-    <!-- ===================== -->
-    <h3>4. Auto Margin (Centering)</h3>
-    <p>
-      If you give an element a fixed width, <code>margin: auto</code> will
-      center the element horizontally.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='center'>Centered box</div>"
-         data-css=".center {
-  margin: auto;
-  width: 220px;
-  background: mediumslateblue;
-  padding: 16px;
-  color: white;
-}">
-
-<pre><code>/* auto margin to center */
-.center {
-  margin: auto;
-  width: 220px;
-  background: mediumslateblue;
-  padding: 16px;
-  color: white;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      This is a common technique to center fixed-width elements horizontally.
-    </p>
-  `
-},
-
-padding: {
-  title: "CSS Padding",
-  category: "Box Model",
-  prev: "margin",
-  next: "display",
-  content: `
-    <h2>CSS Padding</h2>
-
-    <p>
-      The CSS <code>padding</code> property is used to create space
-      <strong>inside</strong> an element between the content and the border.
-      Padding increases the element’s internal space.
-    </p>
-
-    <p style="color: blue;">
-      Note: Padding affects only the inside space — it does not move other elements away (like margin does).
-    </p>
-
-    <!-- ===================== -->
-    <!-- Padding on All Sides -->
-    <!-- ===================== -->
-    <h3>1. Padding on All Sides</h3>
-    <p>
-      You can set padding on all four sides at once using the shorthand
-      <code>padding</code> property.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='p1'>Box with padding</div>"
-         data-css=".p1 {
-  padding: 30px;
-  background: lightgoldenrodyellow;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* padding all sides */
-.p1 {
-  padding: 30px;
-  background: lightgoldenrodyellow;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This example shows space added around the content inside the box.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Padding on Individual Sides -->
-    <!-- ===================== -->
-    <h3>2. Padding for Each Side</h3>
-    <p>
-      You can set padding for each side of an element individually:
-      <code>padding-top</code>, <code>padding-right</code>,
-      <code>padding-bottom</code>, <code>padding-left</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='p2'>Different padding</div>"
-         data-css=".p2 {
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 30px;
-  padding-left: 40px;
-  background: lightcyan;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* padding on individual sides */
-.p2 {
-  padding-top: 10px;
-  padding-right: 20px;
-  padding-bottom: 30px;
-  padding-left: 40px;
-  background: lightcyan;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Values are written in this order:
-      <code>top → right → bottom → left</code>.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Shorthand Multiple Values -->
-    <!-- ===================== -->
-    <h3>3. Padding Shorthand (Multiple Values)</h3>
-    <p>
-      You can also write multiple values in a single line:
-      <code>padding: top right bottom left;</code>
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='p3'>Padding shorthand</div>"
-         data-css=".p3 {
-  padding: 10px 20px 30px 40px;
-  background: lightpink;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* padding shorthand */
-.p3 {
-  padding: 10px 20px 30px 40px;
-  background: lightpink;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Tip: Using shorthand makes your CSS cleaner and easier to read.
-    </p>
-  `
-},
-
-dimension: {
-  title: "CSS Dimension",
-  category: "Box Model",
-  prev: "padding",
-  next: "display",
-  content: `
-    <h2>CSS Dimension</h2>
-
-    <p>
-      CSS dimensions define the <strong>width</strong> and <strong>height</strong> of elements. 
-      These properties control how much horizontal and vertical space an element occupies.
-    </p>
-
-    <p style="color: blue;">
-      Tip: When setting width and height, consider how padding, border, and margin affect the total size of elements.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Width Example -->
-    <!-- ===================== -->
-    <h3>1. Setting Width</h3>
-    <p>
-      The <code>width</code> property sets the horizontal dimension of an element.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='dim1'>Width: 300px</div>"
-         data-css=".dim1 {
-  width: 300px;
-  background: lightblue;
-  padding: 12px;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* width example */
-.dim1 {
-  width: 300px;
-  background: lightblue;
-  padding: 12px;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This box is fixed at 300px wide. If the viewport is narrower, it may overflow.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Height Example -->
-    <!-- ===================== -->
-    <h3>2. Setting Height</h3>
-    <p>
-      The <code>height</code> property sets the vertical dimension of an element.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='dim2'>Height: 150px</div>"
-         data-css=".dim2 {
-  height: 150px;
-  background: lightcoral;
-  padding: 12px;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* height example */
-.dim2 {
-  height: 150px;
-  background: lightcoral;
-  padding: 12px;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This box has a fixed height of 150px. If the content is larger, it may overflow.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Max-Width and Max-Height -->
-    <!-- ===================== -->
-    <h3>3. Max-Width and Max-Height</h3>
-    <p>
-      Use <code>max-width</code> and <code>max-height</code> to limit the size
-      without strictly fixing it.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='dim3'>Max width 400px</div>"
-         data-css=".dim3 {
-  max-width: 400px;
-  padding: 12px;
-  background: lightgreen;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* max-width example */
-.dim3 {
-  max-width: 400px;
-  padding: 12px;
-  background: lightgreen;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p>
-      The element can shrink smaller than 400px, but will never stretch wider than that.
-    </p>
-
-    <!-- ===================== -->
-    <!-- Min-Width and Min-Height -->
-    <!-- ===================== -->
-    <h3>4. Min-Width and Min-Height</h3>
-    <p>
-      Use <code>min-width</code> and <code>min-height</code> to ensure a minimum size.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='dim4'>Min width 250px</div>"
-         data-css=".dim4 {
-  min-width: 250px;
-  min-height: 100px;
-  background: lightgoldenrodyellow;
-  padding: 12px;
-  border: 1px solid #888;
-}">
-
-<pre><code>/* min-width and min-height example */
-.dim4 {
-  min-width: 250px;
-  min-height: 100px;
-  padding: 12px;
-  background: lightgoldenrodyellow;
-  border: 1px solid #888;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Tip: Min and Max dimension properties help make responsive layouts more flexible.
-    </p>
-  `
-},
-
-boxmodel: {
+"boxmodel": {
   title: "CSS Box Model",
   category: "Box Model",
   prev: "dimension",
@@ -1478,9 +1134,569 @@ boxmodel: {
   `
 },
 
-outline: {
+"dimension": {
+  title: "CSS Dimension",
+  category: "Box Model",
+  prev: "padding",
+  next: "display",
+  content: `
+    <h2>CSS Dimension</h2>
+
+    <p>
+      CSS dimensions define the <strong>width</strong> and <strong>height</strong> of elements. 
+      These properties control how much horizontal and vertical space an element occupies.
+    </p>
+
+    <p style="color: blue;">
+      Tip: When setting width and height, consider how padding, border, and margin affect the total size of elements.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Width Example -->
+    <!-- ===================== -->
+    <h3>1. Setting Width</h3>
+    <p>
+      The <code>width</code> property sets the horizontal dimension of an element.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='dim1'>Width: 300px</div>"
+         data-css=".dim1 {
+  width: 300px;
+  background: lightblue;
+  padding: 12px;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* width example */
+.dim1 {
+  width: 300px;
+  background: lightblue;
+  padding: 12px;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This box is fixed at 300px wide. If the viewport is narrower, it may overflow.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Height Example -->
+    <!-- ===================== -->
+    <h3>2. Setting Height</h3>
+    <p>
+      The <code>height</code> property sets the vertical dimension of an element.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='dim2'>Height: 150px</div>"
+         data-css=".dim2 {
+  height: 150px;
+  background: lightcoral;
+  padding: 12px;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* height example */
+.dim2 {
+  height: 150px;
+  background: lightcoral;
+  padding: 12px;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This box has a fixed height of 150px. If the content is larger, it may overflow.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Max-Width and Max-Height -->
+    <!-- ===================== -->
+    <h3>3. Max-Width and Max-Height</h3>
+    <p>
+      Use <code>max-width</code> and <code>max-height</code> to limit the size
+      without strictly fixing it.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='dim3'>Max width 400px</div>"
+         data-css=".dim3 {
+  max-width: 400px;
+  padding: 12px;
+  background: lightgreen;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* max-width example */
+.dim3 {
+  max-width: 400px;
+  padding: 12px;
+  background: lightgreen;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p>
+      The element can shrink smaller than 400px, but will never stretch wider than that.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Min-Width and Min-Height -->
+    <!-- ===================== -->
+    <h3>4. Min-Width and Min-Height</h3>
+    <p>
+      Use <code>min-width</code> and <code>min-height</code> to ensure a minimum size.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='dim4'>Min width 250px</div>"
+         data-css=".dim4 {
+  min-width: 250px;
+  min-height: 100px;
+  background: lightgoldenrodyellow;
+  padding: 12px;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* min-width and min-height example */
+.dim4 {
+  min-width: 250px;
+  min-height: 100px;
+  padding: 12px;
+  background: lightgoldenrodyellow;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Tip: Min and Max dimension properties help make responsive layouts more flexible.
+    </p>
+  `
+},
+
+"margin": {
+  title: "CSS Margin",
+  category: "Box Model",
+  prev: "borders",
+  next: "padding",
+  content: `
+    <h2>CSS Margin</h2>
+
+    <p>
+      The CSS <code>margin</code> property is used to create space around elements.
+      Margin pushes other elements away by adding space outside of the element’s border.
+    </p>
+
+    <p style="color: blue;">
+      Margin does not affect the element’s content area, only the spacing around it.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Individual Sides -->
+    <!-- ===================== -->
+    <h3>1. Margin on One Side</h3>
+    <p>
+      You can set margin for a single side using properties such as
+      <code>margin-top</code>, <code>margin-right</code>, <code>margin-bottom</code>,
+      and <code>margin-left</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='m1'>Margin top 50px</div>"
+         data-css=".m1 {
+  margin-top: 50px;
+  background: lightyellow;
+  padding: 12px;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* margin-top example */
+.m1 {
+  margin-top: 50px;
+  background: lightyellow;
+  padding: 12px;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Only the top margin changes in this example, spacing the element downward.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Margin All Sides -->
+    <!-- ===================== -->
+    <h3>2. Margin on All Sides</h3>
+    <p>
+      The <code>margin</code> shorthand lets you set all margins at once.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='m2'>Margins on all sides</div>"
+         data-css=".m2 {
+  margin: 40px;
+  background: lightcoral;
+  padding: 12px;
+  color: white;
+}">
+
+<pre><code>/* margin all sides */
+.m2 {
+  margin: 40px;
+  background: lightcoral;
+  padding: 12px;
+  color: white;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Setting a single value for <code>margin</code> applies the same spacing
+      on all four sides.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Different Margins -->
+    <!-- ===================== -->
+    <h3>3. Different Margins</h3>
+    <p>
+      You can specify different values for top, right, bottom, and left margins.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='m3'>Top, Right, Bottom, Left</div>"
+         data-css=".m3 {
+  margin: 10px 30px 50px 70px;
+  background: lightseagreen;
+  padding: 12px;
+  color: white;
+}">
+
+<pre><code>/* margin: top right bottom left */
+.m3 {
+  margin: 10px 30px 50px 70px;
+  background: lightseagreen;
+  padding: 12px;
+  color: white;
+}</code></pre>
+
+    </div>
+
+    <p>
+      The values are applied in the order: top → right → bottom → left.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Auto Margin (Centering) -->
+    <!-- ===================== -->
+    <h3>4. Auto Margin (Centering)</h3>
+    <p>
+      If you give an element a fixed width, <code>margin: auto</code> will
+      center the element horizontally.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='center'>Centered box</div>"
+         data-css=".center {
+  margin: auto;
+  width: 220px;
+  background: mediumslateblue;
+  padding: 16px;
+  color: white;
+}">
+
+<pre><code>/* auto margin to center */
+.center {
+  margin: auto;
+  width: 220px;
+  background: mediumslateblue;
+  padding: 16px;
+  color: white;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      This is a common technique to center fixed-width elements horizontally.
+    </p>
+  `
+},
+
+"padding": {
+  title: "CSS Padding",
+  category: "Box Model",
+  prev: "margin",
+  next: "display",
+  content: `
+    <h2>CSS Padding</h2>
+
+    <p>
+      The CSS <code>padding</code> property is used to create space
+      <strong>inside</strong> an element between the content and the border.
+      Padding increases the element’s internal space.
+    </p>
+
+    <p style="color: blue;">
+      Note: Padding affects only the inside space — it does not move other elements away (like margin does).
+    </p>
+
+    <!-- ===================== -->
+    <!-- Padding on All Sides -->
+    <!-- ===================== -->
+    <h3>1. Padding on All Sides</h3>
+    <p>
+      You can set padding on all four sides at once using the shorthand
+      <code>padding</code> property.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='p1'>Box with padding</div>"
+         data-css=".p1 {
+  padding: 30px;
+  background: lightgoldenrodyellow;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* padding all sides */
+.p1 {
+  padding: 30px;
+  background: lightgoldenrodyellow;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This example shows space added around the content inside the box.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Padding on Individual Sides -->
+    <!-- ===================== -->
+    <h3>2. Padding for Each Side</h3>
+    <p>
+      You can set padding for each side of an element individually:
+      <code>padding-top</code>, <code>padding-right</code>,
+      <code>padding-bottom</code>, <code>padding-left</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='p2'>Different padding</div>"
+         data-css=".p2 {
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  background: lightcyan;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* padding on individual sides */
+.p2 {
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  background: lightcyan;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Values are written in this order:
+      <code>top → right → bottom → left</code>.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Shorthand Multiple Values -->
+    <!-- ===================== -->
+    <h3>3. Padding Shorthand (Multiple Values)</h3>
+    <p>
+      You can also write multiple values in a single line:
+      <code>padding: top right bottom left;</code>
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='p3'>Padding shorthand</div>"
+         data-css=".p3 {
+  padding: 10px 20px 30px 40px;
+  background: lightpink;
+  border: 1px solid #888;
+}">
+
+<pre><code>/* padding shorthand */
+.p3 {
+  padding: 10px 20px 30px 40px;
+  background: lightpink;
+  border: 1px solid #888;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Tip: Using shorthand makes your CSS cleaner and easier to read.
+    </p>
+  `
+},
+
+"borders": {
+  title: "CSS Borders",
+  category: "Box Model",
+  prev: "backgrounds",
+  next: "boxmodel",
+  content: `
+    <h2>CSS Borders</h2>
+
+    <p>
+      Borders in CSS are used to define the outer edges of elements.
+      You can control the <strong>width</strong>, <strong>style</strong>, and <strong>color</strong> of borders.
+    </p>
+
+    <p style="color: blue;">
+      Tip: Borders can help visually separate content and improve layout.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Simple Border -->
+    <!-- ===================== -->
+    <h3>1. Simple Border</h3>
+    <p>
+      The <code>border</code> shorthand property can set width, style, and color all at once.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='box1'>Box with simple border</div>"
+         data-css=".box1 {
+  border: 3px solid black;
+  padding: 16px;
+}">
+
+<pre><code>/* Simple border */
+.box1 {
+  border: 3px solid black;
+  padding: 16px;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This example uses a solid black line as a border around the element.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Colored Border -->
+    <!-- ===================== -->
+    <h3>2. Colored Border</h3>
+    <p>
+      Border colors can be added just like text colors.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='box2'>Colored border</div>"
+         data-css=".box2 {
+  border: 4px solid crimson;
+  padding: 16px;
+}">
+
+<pre><code>/* Border with color */
+.box2 {
+  border: 4px solid crimson;
+  padding: 16px;
+}</code></pre>
+
+    </div>
+
+    <p>
+      You can combine any valid CSS color value with your border style.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Different Border Styles -->
+    <!-- ===================== -->
+    <h3>3. Border Styles</h3>
+    <p>
+      CSS supports many border styles, such as <code>dashed</code>, <code>dotted</code>, and <code>double</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='box3a'>Dashed border</div>
+<div class='box3b'>Dotted border</div>
+<div class='box3c'>Double border</div>"
+         data-css=".box3a {
+  border: 2px dashed #0077cc;
+  padding: 8px;
+}
+.box3b {
+  border: 2px dotted #cc7700;
+  padding: 8px;
+}
+.box3c {
+  border: 4px double #337733;
+  padding: 8px;
+}">
+
+<pre><code>/* Different border styles */
+.box3a {
+  border: 2px dashed #0077cc;
+  padding: 8px;
+}
+.box3b {
+  border: 2px dotted #cc7700;
+  padding: 8px;
+}
+.box3c {
+  border: 4px double #337733;
+  padding: 8px;
+}</code></pre>
+
+    </div>
+
+    <p>
+      These styles show how you can change the visual look of a border easily.
+    </p>
+
+    <!-- ===================== -->
+    <!-- Border Radius -->
+    <!-- ===================== -->
+    <h3>4. Rounded Corners</h3>
+    <p>
+      You can make border corners rounded using <code>border-radius</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='box4'>Rounded border</div>"
+         data-css=".box4 {
+  border: 3px solid #444;
+  border-radius: 12px;
+  padding: 16px;
+}">
+
+<pre><code>/* Rounded corners */
+.box4 {
+  border: 3px solid #444;
+  border-radius: 12px;
+  padding: 16px;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Rounded borders create a softer look and are great for buttons and cards.
+    </p>
+  `
+},
+
+"outline": {
   title: "CSS Outline",
-  category: "Basics",
+  category: "Box Model",
   prev: "boxmodel",
   next: "margin", // istersen kendi sırana göre değiştir
   content: `
@@ -1585,9 +1801,9 @@ outline: {
   `
 },
 
-text: {
+"text": {
   title: "CSS Text",
-  category: "Basics",
+  category: "Typography",
   prev: "outline",
   next: "fonts", // sende yoksa null yapabilirsin
   content: `
@@ -1751,9 +1967,9 @@ This paragraph demonstrates spacing properties. It has an indent, larger letter 
   `
 },
 
-fonts: {
+"fonts": {
   title: "CSS Fonts",
-  category: "Text",
+  category: "Typography",
   prev: "text",
   next: "text_align", // istersen sonraki dersi buna bağla
   content: `
@@ -1860,128 +2076,9 @@ fonts: {
   `
 },
 
-icons: {
-  title: "CSS Icons",
-  category: "Visual Styling",
-  prev: "fonts",
-  next: "text_align", // update to the next lesson you want
-  content: `
-    <h2>CSS Icons</h2>
-
-    <p>
-      CSS can be used to style icons as well as text. Many sites use icon fonts
-      (like Font Awesome) or CSS generated content with Unicode icons.
-    </p>
-
-    <p style="color: blue;">
-      Tip: Icons are usually text characters styled with CSS — this makes them scalable and flexible.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) Using Unicode Icons -->
-    <!-- ===================== -->
-    <h3>1. Using Unicode Icons</h3>
-    <p>
-      CSS can insert Unicode symbols using <code>content</code> and
-      <code>:before</code> or <code>:after</code> pseudo-elements.
-    </p>
-
-    <div class="code-block"
-         data-html="<p class='icon-star'>Star icon example</p>"
-         data-css=".icon-star:before {
-  content: '\\2605'; /* ★ Unicode star */
-  color: gold;
-  font-size: 24px;
-  margin-right: 8px;
-}">
-
-<pre><code>/* CSS with Unicode icon */
-.icon-star:before {
-  content: '\\2605'; /* ★ */
-  color: gold;
-  font-size: 24px;
-  margin-right: 8px;
-}</code></pre>
-
-    </div>
-
-    <p>
-      The Unicode <code>\\2605</code> code produces a star symbol ★ before the text.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 2) Icon Fonts (Example) -->
-    <!-- ===================== -->
-    <h3>2. Icon Fonts Example</h3>
-    <p>
-      Many libraries like Font Awesome provide icons as font characters. You add
-      the library and use classes to display icons.
-    </p>
-
-    <div class="code-block"
-         data-html="<!-- Link to Font Awesome (this must be included) -->
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'>
-<p class='fa-icon'><i class='fas fa-heart'></i> Heart Icon</p>"
-         data-css=".fa-icon i {
-  color: crimson;
-  font-size: 28px;
-  margin-right: 6px;
-}">
-
-<pre><code>&lt;!-- HTML --&gt;
-&lt;link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'&gt;
-&lt;p class='fa-icon'&gt;&lt;i class='fas fa-heart'&gt;&lt;/i&gt; Heart Icon&lt;/p&gt;
-
-/* CSS */
-.fa-icon i {
-  color: crimson;
-  font-size: 28px;
-  margin-right: 6px;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This example uses a linked icon font. When added to a real page, the
-      heart icon displays next to the text.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 3) CSS Shape Icons -->
-    <!-- ===================== -->
-    <h3>3. CSS Shape Icons</h3>
-    <p>
-      You can create simple shape “icons” using only CSS and borders/backgrounds.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='css-circle'></div>"
-         data-css=".css-circle {
-  width: 32px;
-  height: 32px;
-  background: orange;
-  border-radius: 50%; /* makes circle */
-}">
-
-<pre><code>/* Simple CSS circle icon */
-.css-circle {
-  width: 32px;
-  height: 32px;
-  background: orange;
-  border-radius: 50%;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      CSS alone can produce simple shape icons such as circles, squares, or even triangles with clever use of borders.
-    </p>
-  `
-},
-
-links: {
+"links": {
   title: "CSS Links",
-  category: "Text",
+  category: "Typography",
   prev: "fonts",
   next: "text_shadow",
   content: `
@@ -2101,9 +2198,128 @@ a.hw1:hover {
   `
 },
 
-lists: {
+"icons": {
+  title: "CSS Icons",
+  category: "Typography",
+  prev: "fonts",
+  next: "text_align", // update to the next lesson you want
+  content: `
+    <h2>CSS Icons</h2>
+
+    <p>
+      CSS can be used to style icons as well as text. Many sites use icon fonts
+      (like Font Awesome) or CSS generated content with Unicode icons.
+    </p>
+
+    <p style="color: blue;">
+      Tip: Icons are usually text characters styled with CSS — this makes them scalable and flexible.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) Using Unicode Icons -->
+    <!-- ===================== -->
+    <h3>1. Using Unicode Icons</h3>
+    <p>
+      CSS can insert Unicode symbols using <code>content</code> and
+      <code>:before</code> or <code>:after</code> pseudo-elements.
+    </p>
+
+    <div class="code-block"
+         data-html="<p class='icon-star'>Star icon example</p>"
+         data-css=".icon-star:before {
+  content: '\\2605'; /* ★ Unicode star */
+  color: gold;
+  font-size: 24px;
+  margin-right: 8px;
+}">
+
+<pre><code>/* CSS with Unicode icon */
+.icon-star:before {
+  content: '\\2605'; /* ★ */
+  color: gold;
+  font-size: 24px;
+  margin-right: 8px;
+}</code></pre>
+
+    </div>
+
+    <p>
+      The Unicode <code>\\2605</code> code produces a star symbol ★ before the text.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 2) Icon Fonts (Example) -->
+    <!-- ===================== -->
+    <h3>2. Icon Fonts Example</h3>
+    <p>
+      Many libraries like Font Awesome provide icons as font characters. You add
+      the library and use classes to display icons.
+    </p>
+
+    <div class="code-block"
+         data-html="<!-- Link to Font Awesome (this must be included) -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'>
+<p class='fa-icon'><i class='fas fa-heart'></i> Heart Icon</p>"
+         data-css=".fa-icon i {
+  color: crimson;
+  font-size: 28px;
+  margin-right: 6px;
+}">
+
+<pre><code>&lt;!-- HTML --&gt;
+&lt;link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'&gt;
+&lt;p class='fa-icon'&gt;&lt;i class='fas fa-heart'&gt;&lt;/i&gt; Heart Icon&lt;/p&gt;
+
+/* CSS */
+.fa-icon i {
+  color: crimson;
+  font-size: 28px;
+  margin-right: 6px;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This example uses a linked icon font. When added to a real page, the
+      heart icon displays next to the text.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 3) CSS Shape Icons -->
+    <!-- ===================== -->
+    <h3>3. CSS Shape Icons</h3>
+    <p>
+      You can create simple shape “icons” using only CSS and borders/backgrounds.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='css-circle'></div>"
+         data-css=".css-circle {
+  width: 32px;
+  height: 32px;
+  background: orange;
+  border-radius: 50%; /* makes circle */
+}">
+
+<pre><code>/* Simple CSS circle icon */
+.css-circle {
+  width: 32px;
+  height: 32px;
+  background: orange;
+  border-radius: 50%;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      CSS alone can produce simple shape icons such as circles, squares, or even triangles with clever use of borders.
+    </p>
+  `
+},
+
+"lists": {
   title: "CSS Lists",
-  category: "Basics",
+  category: "Typography",
   prev: "links",
   next: "tables",  // istersen burayı sonraki derse göre değiştir
   content: `
@@ -2267,9 +2483,9 @@ lists: {
   `
 },
 
-tables: {
+"tables": {
   title: "CSS Tables",
-  category: "Basics",
+  category: "Typography",
   prev: "lists",
   next: "display",  // İstersen bunu kendi sırana göre değiştir
   content: `
@@ -2422,1080 +2638,154 @@ tables: {
   `
 },
 
-display: {
-  title: "CSS Display & Visibility",
-  category: "Layout",
-  prev: "tables",
-  next: "position", 
+"backgrounds": {
+  title: "CSS Backgrounds",
+  category: "Visual Styling",
+  prev: "colors",
+  next: "borders",
   content: `
-    <h2>CSS Display & Visibility</h2>
+    <h2>CSS Backgrounds</h2>
 
     <p>
-      The <code>display</code> property controls how an element is displayed on the page.
-      The <code>visibility</code> property controls whether an element is visible or hidden.
+      CSS provides several properties for setting the background of an element.
+      The most common ones include <code>background-color</code>,
+      <code>background-image</code>, <code>background-repeat</code>, and
+      <code>background-size</code>.
     </p>
 
     <p style="color: blue;">
-      Key idea: <code>display: none</code> removes the element from the layout, but
-      <code>visibility: hidden</code> hides it while keeping its space.
+      The <code>background</code> shorthand can also set multiple background properties at once.
     </p>
 
     <!-- ===================== -->
-    <!-- 1) display: none -->
+    <!-- background-color -->
     <!-- ===================== -->
-    <h3>1. display: none</h3>
+
+    <h3>1. Background Color</h3>
     <p>
-      <code>display: none</code> completely removes the element (it takes no space).
+      The <code>background-color</code> property sets the background color of an element.
     </p>
 
     <div class="code-block"
-         data-html="<p>Visible paragraph 1</p>
-<p class='gone'>This paragraph is removed</p>
-<p>Visible paragraph 2</p>"
-         data-css=".gone { display: none; }">
+         data-html="<div class='bg1'>Box with background color</div>"
+         data-css=".bg1 {
+  background-color: lightblue;
+  padding: 16px;
+  border-radius: 8px;
+}">
 
-<pre><code>/* display: none */
-.gone {
-  display: none;
+<pre><code>/* background-color example */
+.bg1 {
+  background-color: lightblue;
+  padding: 16px;
+  border-radius: 8px;
 }</code></pre>
 
     </div>
 
-    <!-- ===================== -->
-    <!-- 2) visibility: hidden -->
-    <!-- ===================== -->
-    <h3>2. visibility: hidden</h3>
     <p>
-      <code>visibility: hidden</code> hides the element but keeps its space.
+      Use <code>background-color</code> to add solid color backgrounds to elements.
+    </p>
+
+    <!-- ===================== -->
+    <!-- background-image -->
+    <!-- ===================== -->
+
+    <h3>2. Background Image</h3>
+    <p>
+      The <code>background-image</code> property sets an image as the background.
     </p>
 
     <div class="code-block"
-         data-html="<p>Visible paragraph 1</p>
-<p class='hidden'>This paragraph is hidden (space stays)</p>
-<p>Visible paragraph 2</p>"
-         data-css=".hidden {
-  visibility: hidden;
-  background: #ffe4e6;
+         data-html="<div class='bg2'>Hello with image</div>"
+         data-css=".bg2 {
+  background-image: url('https://www.w3schools.com/css/img_lights.jpg');
+  padding: 36px;
+  color: white;
+  text-shadow: 1px 1px #000;
 }">
 
-<pre><code>/* visibility: hidden */
-.hidden {
-  visibility: hidden;
+<pre><code>/* background-image example */
+.bg2 {
+  background-image: url('https://www.w3schools.com/css/img_lights.jpg');
+  padding: 36px;
+  color: white;
+  text-shadow: 1px 1px #000;
 }</code></pre>
 
     </div>
 
-    <!-- ===================== -->
-    <!-- 3) block vs inline -->
-    <!-- ===================== -->
-    <h3>3. Block vs Inline</h3>
     <p>
-      Block elements start on a new line and take full width.
-      Inline elements stay in the same line and take only as much width as needed.
+      Replace the URL with your own image path to change the background image.
+    </p>
+
+    <!-- ===================== -->
+    <!-- background-repeat -->
+    <!-- ===================== -->
+
+    <h3>3. Background Repeat</h3>
+    <p>
+      By default, background images repeat. You can control this with
+      <code>background-repeat</code>.
     </p>
 
     <div class="code-block"
-         data-html="<div class='b'>I am block</div>
-<div class='b'>I am block</div>
-
-<span class='i'>I am inline</span>
-<span class='i'>I am inline</span>"
-         data-css=".b {
-  background: #e0f2fe;
-  padding: 10px;
-  margin: 6px 0;
-  border: 1px solid #93c5fd;
-}
-
-.i {
-  background: #dcfce7;
-  padding: 6px 10px;
-  border: 1px solid #86efac;
+         data-html="<div class='bg3'>No repeat</div>"
+         data-css=".bg3 {
+  background-image: url('https://www.w3schools.com/css/img_forest.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 40px;
+  color: white;
+  text-shadow: 1px 1px #000;
 }">
 
-<pre><code>/* block vs inline */
-.b { /* block default */ }
-.i { /* inline default */ }</code></pre>
+<pre><code>/* background-repeat example */
+.bg3 {
+  background-image: url('https://www.w3schools.com/css/img_forest.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}</code></pre>
 
     </div>
 
-    <!-- ===================== -->
-    <!-- 4) display: inline-block -->
-    <!-- ===================== -->
-    <h3>4. display: inline-block</h3>
     <p>
-      <code>inline-block</code> stays in the same line like inline, but you can set
-      width/height like block.
+      Use <code>no-repeat</code> and <code>background-size</code> to control how the image fills the element.
+    </p>
+
+    <!-- ===================== -->
+    <!-- background shorthand -->
+    <!-- ===================== -->
+
+    <h3>4. Background Shorthand</h3>
+    <p>
+      The <code>background</code> shorthand can set multiple background properties at once.
     </p>
 
     <div class="code-block"
-         data-html="<span class='ib'>Box 1</span>
-<span class='ib'>Box 2</span>
-<span class='ib'>Box 3</span>"
-         data-css=".ib {
-  display: inline-block;
-  width: 120px;
-  padding: 10px;
-  margin: 6px;
-  background: #fef9c3;
-  border: 1px solid #facc15;
-  text-align: center;
+         data-html="<div class='bg4'>Shorthand Example</div>"
+         data-css=".bg4 {
+  background: lightgreen url('https://www.w3schools.com/css/img_mountains.jpg') no-repeat center/cover;
+  padding: 40px;
+  color: white;
+  text-shadow: 1px 1px #000;
 }">
 
-<pre><code>/* inline-block */
-.ib {
-  display: inline-block;
-  width: 120px;
+<pre><code>/* background shorthand */
+.bg4 {
+  background: lightgreen url('https://www.w3schools.com/css/img_mountains.jpg')
+              no-repeat center/cover;
 }</code></pre>
 
     </div>
 
     <p style="color: blue;">
-      Quick summary:
-      <code>display</code> changes layout behavior, <code>visibility</code> only hides/shows.
+      Tip: Using shorthand saves space and can make CSS cleaner.
     </p>
   `
 },
 
-position: {
-  title: "CSS Positioning",
-  category: "Layout",
-  prev: "display_visibility",
-  next: "zindex", // sende yoksa null yap
-  content: `
-    <h2>CSS Positioning</h2>
-
-    <p>
-      CSS positioning controls where elements appear on the page. With positioning,
-      you can override the normal document flow.
-    </p>
-
-    <p style="color: blue;">
-      The <code>position</code> property can be:
-      <code>static</code>, <code>relative</code>, <code>absolute</code>, <code>fixed</code>, <code>sticky</code>.
-      Elements are then moved using <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) static -->
-    <!-- ===================== -->
-    <h3>1. position: static (default)</h3>
-    <p>
-      Static positioned elements follow the normal flow. The properties
-      <code>top/right/bottom/left</code> do not affect them.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='pbox static'>Static (top/left won't move me)</div>"
-         data-css=".pbox{
-  border: 2px solid #73AD21;
-  padding: 12px;
-  margin: 10px 0;
-  background: #f6fff2;
-}
-.static{
-  position: static;
-  top: 30px;
-  left: 30px;
-}">
-
-<pre><code>/* static: default (offsets won't move it) */
-.static {
-  position: static;
-  top: 30px;
-  left: 30px;
-}</code></pre>
-
-    </div>
-
-    <!-- ===================== -->
-    <!-- 2) relative -->
-    <!-- ===================== -->
-    <h3>2. position: relative</h3>
-    <p>
-      Relative positioning keeps the element in the normal flow, but shifts it visually
-      using offsets like <code>left</code> or <code>top</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='pbox'>Normal box</div>
-<div class='pbox relative'>Relative: moved 30px right</div>
-<div class='pbox'>Another normal box</div>"
-         data-css=".pbox{
-  border: 2px solid #73AD21;
-  padding: 12px;
-  margin: 10px 0;
-  background: #f6fff2;
-}
-.relative{
-  position: relative;
-  left: 30px;
-}">
-
-<pre><code>/* relative: moves from its normal position */
-.relative {
-  position: relative;
-  left: 30px;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Notice: The element moves, but it still keeps its original space in the layout. :contentReference[oaicite:1]{index=1}
-    </p>
-
-    <!-- ===================== -->
-    <!-- 3) absolute -->
-    <!-- ===================== -->
-    <h3>3. position: absolute</h3>
-    <p>
-      Absolute positioned elements are removed from the normal flow and positioned
-      relative to the nearest ancestor that is not <code>static</code>.
-      If none exists, it positions relative to the page (document body).
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='container'>
-  This is the relative container.
-  <div class='abs'>Absolute box</div>
-</div>"
-         data-css=".container{
-  position: relative;
-  height: 160px;
-  border: 2px solid #0ea5e9;
-  padding: 12px;
-  background: #eff6ff;
-}
-.abs{
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 170px;
-  padding: 10px;
-  border: 2px solid #ef4444;
-  background: #fff1f2;
-}">
-
-<pre><code>/* absolute: positioned inside nearest positioned ancestor */
-.container { position: relative; }
-
-.abs {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Absolute elements can overlap other content because they are removed from normal flow. :contentReference[oaicite:2]{index=2}
-    </p>
-
-    <!-- ===================== -->
-    <!-- 4) fixed -->
-    <!-- ===================== -->
-    <h3>4. position: fixed</h3>
-    <p>
-      Fixed elements are positioned relative to the viewport, so they stay in the same
-      place even when the page is scrolled.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='demo-area'>
-  <p>Scroll inside this box to see the fixed badge stay put.</p>
-  <div class='fixed-badge'>Fixed</div>
-  <div class='filler'></div>
-</div>"
-         data-css=".demo-area{
-  position: relative;
-  height: 170px;
-  overflow: auto;
-  border: 2px solid #111827;
-  padding: 12px;
-  background: #f9fafb;
-}
-.filler{ height: 420px; }
-.fixed-badge{
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  padding: 10px 12px;
-  background: #111827;
-  color: white;
-  border-radius: 10px;
-  font-weight: 700;
-}">
-
-<pre><code>/* fixed: pinned to the viewport */
-.fixed-badge {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Note: Fixed elements also do not leave a gap where they would normally be. :contentReference[oaicite:3]{index=3}
-    </p>
-
-    <!-- ===================== -->
-    <!-- 5) sticky -->
-    <!-- ===================== -->
-    <h3>5. position: sticky</h3>
-    <p>
-      Sticky elements behave like <code>relative</code> until a scroll threshold is reached,
-      then they “stick” like <code>fixed</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='sticky-wrap'>
-  <div class='sticky-head'>I stick to the top</div>
-  <p>Scroll inside this box...</p>
-  <p>More content...</p>
-  <p>More content...</p>
-  <p>More content...</p>
-  <p>More content...</p>
-  <p>More content...</p>
-</div>"
-         data-css=".sticky-wrap{
-  height: 180px;
-  overflow: auto;
-  border: 2px solid #a855f7;
-  background: #faf5ff;
-}
-.sticky-head{
-  position: sticky;
-  top: 0;
-  padding: 10px 12px;
-  background: #a855f7;
-  color: white;
-  font-weight: 700;
-}">
-
-<pre><code>/* sticky: sticks after you scroll */
-.sticky-head {
-  position: sticky;
-  top: 0;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Summary:
-      <code>relative</code> = moves but keeps space,
-      <code>absolute/fixed</code> = removed from flow,
-      <code>sticky</code> = relative then fixed. :contentReference[oaicite:4]{index=4}
-    </p>
-  `
-},
-
-float: {
-  title: "CSS Float (Clear, Overflow, z-index)",
-  category: "Layout",
-  prev: "positioning",
-  next: "flexbox", // sende yoksa null yap
-  content: `
-    <h2>CSS Float (Clear, Overflow, z-index)</h2>
-
-    <p>
-      <code>float</code> was originally designed to let text wrap around images,
-      but it was also used for page layouts before Flexbox and Grid.
-      In this lesson, we'll learn float basics, clearing floats, using overflow to fix layouts,
-      and a quick intro to <code>z-index</code> for overlapping elements.
-    </p>
-
-    <p style="color: blue;">
-      Tip: Today, use <strong>Flexbox/Grid</strong> for layouts. Use <strong>float</strong> mostly for text wrapping.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) Basic Float -->
-    <!-- ===================== -->
-    <h3>1. Basic Float (Text Wrap)</h3>
-    <p>
-      Floating an element moves it to the left or right, and the content wraps around it.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='wrap'>
-  <div class='img'>IMG</div>
-  <p>
-    This text wraps around the floated box. Float is very common for placing images
-    inside articles so that text flows nicely next to them.
-  </p>
-</div>"
-         data-css=".wrap{
-  border: 2px solid #ddd;
-  padding: 12px;
-}
-.img{
-  float: left;
-  width: 90px;
-  height: 90px;
-  background: #fde68a;
-  border: 2px solid #f59e0b;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  margin: 0 12px 8px 0;
-}">
-
-<pre><code>/* float for text wrapping */
-.img {
-  float: left;
-}</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 2) The "Collapse" Problem -->
-    <!-- ===================== -->
-    <h3>2. Float Problem: Parent Collapses</h3>
-    <p>
-      A floated element is removed from normal flow, so the parent may collapse (lose height).
-      In this demo, the parent border looks too small.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='parent bad'>
-  <div class='box'>Floated</div>
-</div>
-<p class='note'>The border above collapses because the floated box doesn't stretch the parent.</p>"
-         data-css=".parent{
-  border: 3px solid #ef4444;
-  padding: 10px;
-  margin: 10px 0;
-}
-.box{
-  float: left;
-  width: 140px;
-  height: 70px;
-  background: #bfdbfe;
-  border: 2px solid #2563eb;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-}
-.note{ margin-top: 6px; }">
-
-<pre><code>/* common float issue: parent collapses */
-.parent { border: 3px solid #ef4444; }
-.box { float: left; }</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 3) Clearfix -->
-    <!-- ===================== -->
-    <h3>3. Clearing Floats (clearfix)</h3>
-    <p>
-      One classic solution is a clearfix using a pseudo-element.
-      This makes the parent wrap the floated children again.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='parent cf'>
-  <div class='box'>Floated</div>
-</div>
-<p class='note'>Now the parent border wraps the floated box.</p>"
-         data-css=".parent{
-  border: 3px solid #16a34a;
-  padding: 10px;
-  margin: 10px 0;
-}
-.box{
-  float: left;
-  width: 140px;
-  height: 70px;
-  background: #bfdbfe;
-  border: 2px solid #2563eb;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-}
-/* clearfix */
-.cf::after{
-  content: '';
-  display: block;
-  clear: both;
-}">
-
-<pre><code>/* clearfix */
-.cf::after {
-  content: '';
-  display: block;
-  clear: both;
-}</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 4) Overflow "fix" + Overflow concept -->
-    <!-- ===================== -->
-    <h3>4. Using Overflow (and Overflow Basics)</h3>
-    <p>
-      Another common trick is setting <code>overflow: auto</code> (or <code>hidden</code>) on the parent.
-      This creates a new block formatting context so it contains floats.
-      Also, overflow controls what happens when content is too large for a box.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='parent ov'>
-  <div class='box'>Floated</div>
-  <p>Parent contains float using overflow.</p>
-</div>
-
-<div class='overflow-demo'>
-  This is a long line of text that will not fit in the box and shows overflow behavior...
-</div>"
-         data-css=".parent{
-  border: 3px solid #7c3aed;
-  padding: 10px;
-  margin: 10px 0;
-}
-.box{
-  float: left;
-  width: 140px;
-  height: 70px;
-  background: #bfdbfe;
-  border: 2px solid #2563eb;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  margin-right: 12px;
-}
-/* contains float */
-.ov{ overflow: auto; }
-
-.overflow-demo{
-  width: 260px;
-  height: 70px;
-  border: 2px solid #111827;
-  padding: 10px;
-  overflow: auto;
-  white-space: nowrap;
-  margin-top: 12px;
-}">
-
-<pre><code>/* contains floats */
-.parent { overflow: auto; }
-
-/* overflow basics */
-.overflow-demo {
-  height: 70px;
-  overflow: auto;
-}</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 5) z-index -->
-    <!-- ===================== -->
-    <h3>5. z-index (Overlapping Elements)</h3>
-    <p>
-      <code>z-index</code> controls which positioned element appears on top.
-      It works only on elements with a <code>position</code> value other than <code>static</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='stack'>
-  <div class='card one'>Box 1</div>
-  <div class='card two'>Box 2</div>
-  <div class='card three'>Box 3</div>
-</div>"
-         data-css=".stack{
-  position: relative;
-  height: 160px;
-  border: 2px dashed #9ca3af;
-  padding: 10px;
-}
-.card{
-  position: absolute;
-  width: 140px;
-  height: 90px;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  border: 2px solid #111827;
-}
-.one{ top: 20px; left: 20px; background: #fecaca; z-index: 1; }
-.two{ top: 40px; left: 60px; background: #bbf7d0; z-index: 3; }
-.three{ top: 60px; left: 100px; background: #bfdbfe; z-index: 2; }">
-
-<pre><code>/* z-index works with positioned elements */
-.two { z-index: 3; } /* on top */</code></pre>
-    </div>
-
-    <p style="color: blue;">
-      Summary:
-      <strong>float</strong> wraps content,
-      <strong>clear/clearfix</strong> fixes float layout issues,
-      <strong>overflow</strong> manages content overflow and can contain floats,
-      <strong>z-index</strong> controls stacking order for positioned elements.
-    </p>
-  `
-},
-
-align: {
-  title: "CSS Align",
-  category: "Layout",
-  prev: "float",
-  next: "flexbox", // sende yoksa null yapabilirsin
-  content: `
-    <h2>CSS Align</h2>
-
-    <p>
-      CSS alignment properties are used to align text, inline elements, block elements,
-      and boxes. The most common alignment properties include
-      <code>text-align</code>, <code>vertical-align</code>, and flexbox/grid alignment.
-    </p>
-
-    <p style="color: blue;">
-      Tip: Proper alignment improves readability and layout structure.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) Text Alignment -->
-    <!-- ===================== -->
-    <h3>1. Text Alignment</h3>
-    <p>
-      The <code>text-align</code> property aligns inline content (like text) horizontally
-      within a parent block.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='txt1'>Left aligned text</div>
-<div class='txt2'>Center aligned text</div>
-<div class='txt3'>Right aligned text</div>"
-         data-css=".txt1 { text-align: left; border: 1px solid #888; padding: 8px; }
-.txt2 { text-align: center; border: 1px solid #888; padding: 8px; }
-.txt3 { text-align: right; border: 1px solid #888; padding: 8px; }">
-
-<pre><code>/* text-align */
-.txt1 { text-align: left; }
-.txt2 { text-align: center; }
-.txt3 { text-align: right; }</code></pre>
-
-    </div>
-
-    <p>
-      Text alignment is very useful for headings and paragraphs to control horizontal flow.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 2) Vertical Align (inline/inline-block) -->
-    <!-- ===================== -->
-    <h3>2. Vertical Align</h3>
-    <p>
-      The <code>vertical-align</code> property aligns inline or inline-block elements
-      relative to the baseline.
-    </p>
-
-    <div class="code-block"
-         data-html="<span class='va1'>A</span>
-<span class='va2'>B</span>
-<span class='va3'>C</span>"
-         data-css=".va1 { font-size: 32px; vertical-align: baseline; }
-.va2 { font-size: 20px; vertical-align: middle; }
-.va3 { font-size: 14px; vertical-align: top; }">
-
-<pre><code>/* vertical-align */
-.va1 { vertical-align: baseline; }
-.va2 { vertical-align: middle; }
-.va3 { vertical-align: top; }</code></pre>
-
-    </div>
-
-    <p>
-      Often used with icons or inline boxes next to text.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 3) Aligning Boxes with margin auto -->
-    <!-- ===================== -->
-    <h3>3. Horizontal Box Centering</h3>
-    <p>
-      You can center a block-level box by using <code>margin: auto</code> if a width is set.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='boxcenter'>Centered box</div>"
-         data-css=".boxcenter {
-  width: 240px;
-  margin: auto;
-  padding: 12px;
-  background: #c7d2fe;
-  text-align: center;
-}">
-
-<pre><code>/* center block */
-.boxcenter {
-  width: 240px;
-  margin: auto;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This technique works well for fixed-width boxes in layouts.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 4) Flexbox Align Items (bonus modern) -->
-    <!-- ===================== -->
-    <h3>4. Flexbox Alignment (Modern)</h3>
-    <p>
-      With Flexbox you can align items horizontally and vertically using
-      <code>justify-content</code> and <code>align-items</code>.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='flex'>
-  <div class='fx1'>Item 1</div>
-  <div class='fx2'>Item 2</div>
-  <div class='fx3'>Item 3</div>
-</div>"
-         data-css=".flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70px;
-  background: #e5e7eb;
-}
-.flex div {
-  padding: 8px 12px;
-  border: 1px solid #4b5563;
-  margin: 0 6px;
-}">
-
-<pre><code>/* flexbox alignment */
-.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Flexbox alignment is now the most common way to align elements.
-    </p>
-  `
-},
-
-combinators: {
-  title: "CSS Combinators",
-  category: "Selectors",
-  prev: "grouping",
-  next: "comments",
-  content: `
-    <h2>CSS Combinators</h2>
-
-    <p>
-      CSS combinators allow you to combine selectors to target elements based on their
-      relationship in the document tree.
-    </p>
-
-    <p style="color: blue;">
-      These include:
-      <code>descendant</code>,
-      <code>child</code>,
-      <code>adjacent sibling</code>,
-      and <code>general sibling</code> combinators.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) Descendant Combinator (space) -->
-    <!-- ===================== -->
-    <h3>1. Descendant Combinator</h3>
-    <p>
-      The space combinator selects elements that are descendants of another selector.
-      It matches children, grandchildren, etc.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='parent'>
-  <p>This is a child &lt;p&gt;</p>
-  <div class='inner'>
-    <p>This is a nested child &lt;p&gt;</p>
-  </div>
-</div>"
-         data-css=".parent p {
-  color: red;
-}">
-
-<pre><code>/* Descendant combinator */
-.parent p {
-  color: red;
-}</code></pre>
-
-    </div>
-
-    <p>
-      In this example, both paragraphs inside <code>.parent</code> turn red.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 2) Child Combinator (>) -->
-    <!-- ===================== -->
-    <h3>2. Child Combinator</h3>
-    <p>
-      The child combinator (<code>&gt;</code>) selects only direct children.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='parent2'>
-  <p>Direct child &lt;p&gt;</p>
-  <div class='inner'>
-    <p>Nested child &lt;p&gt; (not styled)</p>
-  </div>
-</div>"
-         data-css=".parent2 &gt; p {
-  color: green;
-}">
-
-<pre><code>/* Child combinator */
-.parent2 > p {
-  color: green;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Only the direct paragraph inside <code>.parent2</code> becomes green.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 3) Adjacent Sibling (+) -->
-    <!-- ===================== -->
-    <h3>3. Adjacent Sibling Combinator</h3>
-    <p>
-      The adjacent sibling combinator (<code>+</code>) selects an element that comes
-      immediately after another element.
-    </p>
-
-    <div class="code-block"
-         data-html="<h3>Header</h3>
-<p class='adj'>This paragraph follows the header directly.</p>
-<p>This paragraph does not get styled.</p>"
-         data-css="h3 + p {
-  color: blue;
-}">
-
-<pre><code>/* Adjacent sibling combinator */
-h3 + p {
-  color: blue;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Only the first <code>&lt;p&gt;</code> that **immediately follows** the <code>&lt;h3&gt;</code> is blue.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 4) General Sibling (~) -->
-    <!-- ===================== -->
-    <h3>4. General Sibling Combinator</h3>
-    <p>
-      The general sibling combinator (<code>~</code>) selects all siblings after an element.
-    </p>
-
-    <div class="code-block"
-         data-html="<h3>Header</h3>
-<p class='gen'>First following sibling</p>
-<p class='gen'>Second following sibling</p>"
-         data-css="h3 ~ p {
-  color: purple;
-}">
-
-<pre><code>/* General sibling combinator */
-h3 ~ p {
-  color: purple;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      In this example, both paragraphs that come after the <code>&lt;h3&gt;</code> are purple.
-    </p>
-  `
-},
-
-pseudo: {
-  title: "CSS Pseudo-Classes & Pseudo-Elements",
-  category: "Selectors",
-  prev: "combinators",
-  next: "howto",
-  content: `
-    <h2>CSS Pseudo-Classes & Pseudo-Elements</h2>
-
-    <p>
-      CSS pseudo-classes and pseudo-elements let you style elements based on their
-      state or specific parts of the element. They enhance regular selectors
-      without extra HTML.
-    </p>
-
-    <p style="color: blue;">
-      Tip: Pseudo-classes use a single colon (<code>:</code>), pseudo-elements use a double colon (<code>::</code>).
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) Pseudo-Classes: :hover, :active -->
-    <!-- ===================== -->
-    <h3>1. Pseudo-Classes (<code>:hover</code>, <code>:active</code>)</h3>
-    <p>
-      Pseudo-classes target elements based on interaction or state.
-    </p>
-
-    <div class="code-block"
-         data-html="<p><a href='#' class='btn1'>Hover me</a> or <a href='#' class='btn2'>Click me</a></p>"
-         data-css=".btn1:hover {
-  color: white;
-  background: #2563eb;
-}
-.btn2:active {
-  color: white;
-  background: #dc2626;
-}">
-
-<pre><code>/* pseudo-classes */
-.btn1:hover {
-  background: #2563eb;
-  color: white;
-}
-.btn2:active {
-  background: #dc2626;
-  color: white;
-}</code></pre>
-
-    </div>
-
-    <p>
-      With <code>:hover</code>, styles apply when the mouse is over the element.
-      <code>:active</code> applies during clicking.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 2) Pseudo-Class: :first-child, :last-child -->
-    <!-- ===================== -->
-    <h3>2. <code>:first-child</code> & <code>:last-child</code></h3>
-    <p>
-      These select only the first or last child of a parent.
-    </p>
-
-    <div class="code-block"
-         data-html="<ul class='fc'>
-  <li>First</li><li>Middle</li><li>Last</li>
-</ul>"
-         data-css=".fc li:first-child {
-  color: green;
-}
-.fc li:last-child {
-  color: red;
-}">
-
-<pre><code>/* first & last child */
-.fc li:first-child {
-  color: green;
-}
-.fc li:last-child {
-  color: red;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This is useful for highlighting specific list items without extra classes.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 3) Pseudo-Elements: ::before -->
-    <!-- ===================== -->
-    <h3>3. Pseudo-Element <code>::before</code></h3>
-    <p>
-      <code>::before</code> inserts content before an element’s content.
-    </p>
-
-    <div class="code-block"
-         data-html="<p class='pb'>This paragraph</p>"
-         data-css=".pb::before {
-  content: '🌟 ';
-  color: gold;
-}">
-
-<pre><code>/* pseudo-element before */
-.pb::before {
-  content: '🌟 ';
-  color: gold;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Use <code>content</code> to add icons, quotes, or extra text without changing HTML.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 4) Pseudo-Elements: ::after -->
-    <!-- ===================== -->
-    <h3>4. Pseudo-Element <code>::after</code></h3>
-    <p>
-      <code>::after</code> adds content after the element.
-    </p>
-
-    <div class="code-block"
-         data-html="<p class='pa'>Styled with after</p>"
-         data-css=".pa::after {
-  content: ' ✓';
-  color: green;
-  font-weight: bold;
-}">
-
-<pre><code>/* pseudo-element after */
-.pa::after {
-  content: ' ✓';
-  color: green;
-  font-weight: bold;
-}</code></pre>
-
-    </div>
-
-    <p>
-      This is often used to mark completion, decorations, or effects.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 5) Pseudo-Element: ::first-letter -->
-    <!-- ===================== -->
-    <h3>5. <code>::first-letter</code></h3>
-    <p>
-      <code>::first-letter</code> applies styles to the first character of a block.
-    </p>
-
-    <div class="code-block"
-         data-html="<p class='fl'>Fancy first letter</p>"
-         data-css=".fl::first-letter {
-  font-size: 2.2em;
-  color: #8b5cf6;
-  font-weight: bold;
-}">
-
-<pre><code>/* pseudo-element first-letter */
-.fl::first-letter {
-  font-size: 2.2em;
-  color: #8b5cf6;
-  font-weight: bold;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Quick recap:
-      <code>:hover</code>, <code>:active</code>, <code>:first-child</code> are pseudo-classes;
-      <code>::before</code>, <code>::after</code>, <code>::first-letter</code> are pseudo-elements.
-    </p>
-  `
-},
-
-image_transparency: {
+"image_transparency": {
   title: "CSS Image Transparency (Opacity)",
   category: "Visual Styling",
   prev: "pseudo",
@@ -3619,166 +2909,7 @@ image_transparency: {
   `
 },
 
-attribute_selectors: {
-  title: "CSS Attribute Selectors",
-  category: "Selectors",
-  prev: "pseudo",
-  next: "howto",
-  content: `
-    <h2>CSS Attribute Selectors</h2>
-
-    <p>
-      Attribute selectors allow you to select elements based on their attributes
-      or attribute values. This is very powerful for forms, links, and dynamic content.
-    </p>
-
-    <p style="color: blue;">
-      Tip: Attribute selectors are written using square brackets <code>[]</code>.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) [attribute] -->
-    <!-- ===================== -->
-    <h3>1. Select by Attribute Presence</h3>
-    <p>
-      Selects all elements that have a specific attribute.
-    </p>
-
-    <div class="code-block"
-         data-html="<input type='text' placeholder='Your name'>
-<input type='password' placeholder='Password'>"
-         data-css="input[placeholder] {
-  border: 2px solid #2563eb;
-  padding: 6px;
-}">
-
-<pre><code>/* has attribute */
-input[placeholder] {
-  border: 2px solid #2563eb;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Both inputs are selected because they have the <code>placeholder</code> attribute.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 2) [attribute=value] -->
-    <!-- ===================== -->
-    <h3>2. Select by Exact Value</h3>
-    <p>
-      Selects elements with an exact attribute value.
-    </p>
-
-    <div class="code-block"
-         data-html="<input type='text' value='Text field'>
-<input type='password' value='Secret'>"
-         data-css="input[type='password'] {
-  background: #fee2e2;
-  border: 2px solid #dc2626;
-}">
-
-<pre><code>/* exact value */
-input[type='password'] {
-  background: #fee2e2;
-  border: 2px solid #dc2626;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Only the password input is styled.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 3) [attribute^=value] -->
-    <!-- ===================== -->
-    <h3>3. Starts With (<code>^=</code>)</h3>
-    <p>
-      Selects elements whose attribute value starts with a specific string.
-    </p>
-
-    <div class="code-block"
-         data-html="<a href='https://google.com'>Google</a><br>
-<a href='http://example.com'>Example</a>"
-         data-css="a[href^='https'] {
-  color: green;
-  font-weight: bold;
-}">
-
-<pre><code>/* starts with */
-a[href^='https'] {
-  color: green;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Only secure (https) links become green.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 4) [attribute$=value] -->
-    <!-- ===================== -->
-    <h3>4. Ends With (<code>$=</code>)</h3>
-    <p>
-      Selects elements whose attribute value ends with a specific string.
-    </p>
-
-    <div class="code-block"
-         data-html="<img src='photo.jpg'>
-<img src='icon.png'>"
-         data-css="img[src$='.png'] {
-  border: 3px solid orange;
-}">
-
-<pre><code>/* ends with */
-img[src$='.png'] {
-  border: 3px solid orange;
-}</code></pre>
-
-    </div>
-
-    <p>
-      Only PNG images get an orange border.
-    </p>
-
-    <!-- ===================== -->
-    <!-- 5) [attribute*=value] -->
-    <!-- ===================== -->
-    <h3>5. Contains (<code>*=</code>)</h3>
-    <p>
-      Selects elements whose attribute value contains a specific substring.
-    </p>
-
-    <div class="code-block"
-         data-html="<a href='profile-user.html'>User Profile</a><br>
-<a href='admin-panel.html'>Admin Panel</a>"
-         data-css="a[href*='admin'] {
-  color: red;
-  font-weight: bold;
-}">
-
-<pre><code>/* contains */
-a[href*='admin'] {
-  color: red;
-}</code></pre>
-
-    </div>
-
-    <p style="color: blue;">
-      Recap:
-      <code>[attr]</code>,
-      <code>[attr=value]</code>,
-      <code>[attr^=value]</code>,
-      <code>[attr$=value]</code>,
-      <code>[attr*=value]</code>
-    </p>
-  `
-},
-
-forms: {
+"forms": {
   title: "CSS Forms",
   category: "Visual Styling",
   prev: "attribute_selectors",
@@ -4034,517 +3165,765 @@ forms: {
   `
 },
 
-counters: {
-  title: "CSS Counters",
-  category: "Advanced",
-  prev: "forms",
-  next: null, // sende sonraki konu varsa yaz
+"display": {
+  title: "CSS Display & Visibility",
+  category: "Layout",
+  prev: "tables",
+  next: "position", 
   content: `
-    <h2>CSS Counters</h2>
+    <h2>CSS Display & Visibility</h2>
 
     <p>
-      CSS counters let you create automatic numbering (headings, sections, lists)
-      without JavaScript. Counters are like CSS-managed variables. :contentReference[oaicite:1]{index=1}
+      The <code>display</code> property controls how an element is displayed on the page.
+      The <code>visibility</code> property controls whether an element is visible or hidden.
     </p>
 
     <p style="color: blue;">
-      Main tools: <code>counter-reset</code>, <code>counter-increment</code>, and
-      inserting the value using <code>content</code> + <code>counter()</code>/<code>counters()</code>. :contentReference[oaicite:2]{index=2}
+      Key idea: <code>display: none</code> removes the element from the layout, but
+      <code>visibility: hidden</code> hides it while keeping its space.
     </p>
 
     <!-- ===================== -->
-    <!-- 1) Basic heading counter -->
+    <!-- 1) display: none -->
     <!-- ===================== -->
-    <h3>1. Numbering Headings</h3>
+    <h3>1. display: none</h3>
     <p>
-      Create a counter on the page, then increment it for each heading and print it using <code>::before</code>.
+      <code>display: none</code> completely removes the element (it takes no space).
     </p>
 
     <div class="code-block"
-         data-html="<h2>HTML Tutorial</h2>
-<p>Some text...</p>
-<h2>CSS Tutorial</h2>
-<p>Some text...</p>
-<h2>JavaScript Tutorial</h2>
-<p>Some text...</p>"
-         data-css="body{
-  counter-reset: section;
-}
-h2::before{
-  counter-increment: section;
-  content: 'Section ' counter(section) ': ';
-  font-weight: 800;
-  color: #2563eb;
-}">
+         data-html="<p>Visible paragraph 1</p>
+<p class='gone'>This paragraph is removed</p>
+<p>Visible paragraph 2</p>"
+         data-css=".gone { display: none; }">
 
-<pre><code>body { counter-reset: section; }
-
-h2::before {
-  counter-increment: section;
-  content: "Section " counter(section) ": ";
+<pre><code>/* display: none */
+.gone {
+  display: none;
 }</code></pre>
 
     </div>
 
     <!-- ===================== -->
-    <!-- 2) Nested counters with counters() -->
+    <!-- 2) visibility: hidden -->
     <!-- ===================== -->
-    <h3>2. Nested Numbering (1, 1.1, 1.2...)</h3>
+    <h3>2. visibility: hidden</h3>
     <p>
-      Use nested counters and the <code>counters()</code> function to build multi-level numbers. :contentReference[oaicite:3]{index=3}
+      <code>visibility: hidden</code> hides the element but keeps its space.
     </p>
 
     <div class="code-block"
-         data-html="<ol class='toc'>
-  <li>Intro</li>
-  <li>Selectors
-    <ol>
-      <li>Class</li>
-      <li>ID</li>
-    </ol>
-  </li>
-  <li>Colors</li>
-</ol>"
-         data-css=".toc{
-  counter-reset: item;
-  list-style: none;
-  padding-left: 0;
-}
-.toc li{
-  counter-increment: item;
-  margin: 8px 0;
-}
-.toc li::before{
-  content: counters(item,'.') ' ';
-  font-weight: 800;
-  color: #111827;
-}
-.toc ol{
-  counter-reset: item;
-  list-style: none;
-  padding-left: 18px;
-  margin-top: 6px;
+         data-html="<p>Visible paragraph 1</p>
+<p class='hidden'>This paragraph is hidden (space stays)</p>
+<p>Visible paragraph 2</p>"
+         data-css=".hidden {
+  visibility: hidden;
+  background: #ffe4e6;
 }">
 
-<pre><code>/* nested counters */
-ol { counter-reset: item; list-style: none; }
-li { counter-increment: item; }
-li::before { content: counters(item, ".") " "; }</code></pre>
-
-    </div>
-
-    <!-- ===================== -->
-    <!-- 3) Styling the counter like a badge -->
-    <!-- ===================== -->
-    <h3>3. Counter as a Badge</h3>
-    <p>
-      You can style the generated number like a small badge.
-    </p>
-
-    <div class="code-block"
-         data-html="<h3 class='badge'>Lesson</h3>
-<h3 class='badge'>Practice</h3>
-<h3 class='badge'>Quiz</h3>"
-         data-css="body{ counter-reset: step; }
-
-.badge{
-  counter-increment: step;
-  margin: 12px 0;
-  padding-left: 48px;
-  position: relative;
-  line-height: 1.2;
-}
-.badge::before{
-  content: counter(step);
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  color: white;
-  background: #04AA6D;
-}">
-
-<pre><code>body { counter-reset: step; }
-
-.badge { counter-increment: step; }
-.badge::before {
-  content: counter(step);
+<pre><code>/* visibility: hidden */
+.hidden {
+  visibility: hidden;
 }</code></pre>
 
     </div>
 
-    <p style="color: blue;">
-      Recap:
-      <code>counter-reset</code> starts/reset the counter,
-      <code>counter-increment</code> adds to it,
-      and <code>content</code> prints it using <code>counter()</code>/<code>counters()</code>. :contentReference[oaicite:4]{index=4}
-    </p>
-  `
-},
-
-units: {
-  title: "CSS Units",
-  category: "Basics",
-  prev: "counters",
-  next: "rwd", // sende yoksa null yap
-  content: `
-    <h2>CSS Units</h2>
-
-    <p>
-      CSS uses different units to express length values (like <code>width</code>, <code>margin</code>,
-      <code>padding</code>, <code>font-size</code>, etc.). A length is a number + unit such as
-      <code>20px</code>, <code>2rem</code>, <code>50%</code>. :contentReference[oaicite:1]{index=1}
-    </p>
-
-    <p style="color: blue;">
-      CSS units are grouped into <strong>absolute</strong> and <strong>relative</strong> units. :contentReference[oaicite:2]{index=2}
-    </p>
-
     <!-- ===================== -->
-    <!-- 1) Absolute units -->
+    <!-- 3) block vs inline -->
     <!-- ===================== -->
-    <h3>1. Absolute Units</h3>
+    <h3>3. Block vs Inline</h3>
     <p>
-      Absolute units include <code>px</code>, <code>cm</code>, <code>mm</code>, <code>in</code>,
-      <code>pt</code>, <code>pc</code>. On screens, <code>px</code> is the most common absolute unit. :contentReference[oaicite:3]{index=3}
+      Block elements start on a new line and take full width.
+      Inline elements stay in the same line and take only as much width as needed.
     </p>
 
     <div class="code-block"
-         data-html="<div class='abs px'>Width: 240px</div>
-<div class='abs pt'>Font: 18pt</div>"
-         data-css=".abs{
-  border: 2px solid #111827;
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin: 10px 0;
-  background: #f9fafb;
-}
-.px{ width: 240px; }
-.pt{ font-size: 18pt; }">
+         data-html="<div class='b'>I am block</div>
+<div class='b'>I am block</div>
 
-<pre><code>/* absolute units */
-.px { width: 240px; }
-.pt { font-size: 18pt; }</code></pre>
-    </div>
-
-    <p style="color: blue;">
-      Note: Physical units (cm, mm, in, pt) are more meaningful for print; for screens, px is common. :contentReference[oaicite:4]{index=4}
-    </p>
-
-    <!-- ===================== -->
-    <!-- 2) Percent -->
-    <!-- ===================== -->
-    <h3>2. Percentage (<code>%</code>)</h3>
-    <p>
-      Percentages are relative to the parent (containing block). Great for responsive widths.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='parent'>
-  <div class='child'>50% width</div>
-</div>"
-         data-css=".parent{
-  border: 2px dashed #9ca3af;
-  padding: 12px;
-}
-.child{
-  width: 50%;
+<span class='i'>I am inline</span>
+<span class='i'>I am inline</span>"
+         data-css=".b {
+  background: #e0f2fe;
   padding: 10px;
-  border-radius: 10px;
-  background: #dbeafe;
-  border: 2px solid #2563eb;
-  font-weight: 700;
-}">
-
-<pre><code>/* % is relative to parent */
-.child { width: 50%; }</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 3) em -->
-    <!-- ===================== -->
-    <h3>3. <code>em</code> (Relative to Element Font Size)</h3>
-    <p>
-      <code>em</code> is relative to the font-size of the element (or its parent, depending on the property).
-      Commonly used for spacing around text.
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='em-wrap'>
-  <p class='em-text'>Padding is 1em</p>
-</div>"
-         data-css=".em-wrap{
-  font-size: 20px;
+  margin: 6px 0;
+  border: 1px solid #93c5fd;
 }
-.em-text{
-  padding: 1em; /* 1em = 20px here */
-  border: 2px solid #16a34a;
-  border-radius: 10px;
+
+.i {
   background: #dcfce7;
-  margin: 0;
-}">
-
-<pre><code>/* em: based on font-size */
-.em-wrap { font-size: 20px; }
-.em-text { padding: 1em; }</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 4) rem -->
-    <!-- ===================== -->
-    <h3>4. <code>rem</code> (Relative to Root Font Size)</h3>
-    <p>
-      <code>rem</code> is relative to the root element (<code>html</code>) font-size.
-      This makes sizing more predictable across a whole page. :contentReference[oaicite:5]{index=5}
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='rem-card'>
-  <h3>Title (1.5rem)</h3>
-  <p>Text (1rem)</p>
-</div>"
-         data-css="html{ font-size: 16px; }
-
-.rem-card{
-  border: 2px solid #a855f7;
-  border-radius: 12px;
-  padding: 1rem;
-  background: #faf5ff;
-  max-width: 340px;
-}
-.rem-card h3{
-  margin: 0 0 .5rem;
-  font-size: 1.5rem; /* 24px if html is 16px */
-}
-.rem-card p{
-  margin: 0;
-  font-size: 1rem; /* 16px */
-}">
-
-<pre><code>/* rem: based on html font-size */
-html { font-size: 16px; }
-h3 { font-size: 1.5rem; }
-p  { font-size: 1rem; }</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 5) Viewport units -->
-    <!-- ===================== -->
-    <h3>5. Viewport Units (<code>vw</code>, <code>vh</code>, <code>vmin</code>, <code>vmax</code>)</h3>
-    <p>
-      Viewport units are based on the browser window size:
-      <code>1vw</code> = 1% of viewport width, <code>1vh</code> = 1% of viewport height. :contentReference[oaicite:6]{index=6}
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='vh-box'>Height: 25vh</div>
-<div class='vw-box'>Width: 50vw</div>"
-         data-css=".vh-box{
-  height: 25vh;
-  border-radius: 12px;
-  border: 2px solid #0ea5e9;
-  background: #ecfeff;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-.vw-box{
-  width: 50vw;
-  max-width: 520px;
-  min-width: 220px;
-  padding: 12px;
-  border-radius: 12px;
-  border: 2px solid #f97316;
-  background: #fff7ed;
-  font-weight: 800;
-}">
-
-<pre><code>/* viewport units */
-.vh-box { height: 25vh; }
-.vw-box { width: 50vw; }</code></pre>
-    </div>
-
-    <!-- ===================== -->
-    <!-- 6) Quick guide -->
-    <!-- ===================== -->
-    <h3>Quick Guide: Which Unit Should I Use?</h3>
-    <ul>
-      <li><strong>px</strong>: borders, tiny shadows, very precise values</li>
-      <li><strong>%</strong>: responsive widths relative to parent</li>
-      <li><strong>rem</strong>: typography + spacing system (consistent across site)</li>
-      <li><strong>em</strong>: padding/margins that should scale with the element’s text</li>
-      <li><strong>vw/vh</strong>: hero sections, fullscreen layouts, responsive sizing tied to viewport</li>
-    </ul>
-
-    <p style="color: blue;">
-      Tip: Many modern projects use <code>rem</code> for most spacing & typography, and <code>px</code> for borders.
-    </p>
-  `
-},
-
-inheritance: {
-  title: "CSS Inheritance",
-  category: "Basics",
-  prev: "units",
-  next: "cascade", // sende yoksa null yap
-  content: `
-    <h2>CSS Inheritance</h2>
-
-    <p>
-      Inheritance in CSS describes what happens when an element does not have a value
-      set for a property. Some properties are <strong>inherited by default</strong>
-      (like <code>color</code> and font properties), while others are not (like <code>border</code>). :contentReference[oaicite:1]{index=1}
-    </p>
-
-    <p style="color: blue;">
-      You can also force inheritance using the <code>inherit</code> keyword for any CSS property. :contentReference[oaicite:2]{index=2}
-    </p>
-
-    <!-- ===================== -->
-    <!-- 1) Inherited: color -->
-    <!-- ===================== -->
-    <h3>1. Inherited Example: <code>color</code></h3>
-    <p>
-      <code>color</code> is inherited, so children usually take the parent's text color
-      unless they override it. :contentReference[oaicite:3]{index=3}
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='parent'>
-  Parent text
-  <p>Child paragraph</p>
-  <p>Another child <span>with span</span></p>
-</div>"
-         data-css=".parent{
-  color: #2563eb;
-  font-size: 18px;
-  font-family: Arial, sans-serif;
-  border: 2px solid #93c5fd;
-  padding: 12px;
-  border-radius: 12px;
-}">
-
-<pre><code>/* inherited properties */
-.parent {
-  color: #2563eb;
-  font-size: 18px;
-  font-family: Arial, sans-serif;
-}</code></pre>
-
-    </div>
-
-    <!-- ===================== -->
-    <!-- 2) Not inherited: border -->
-    <!-- ===================== -->
-    <h3>2. Not Inherited Example: <code>border</code></h3>
-    <p>
-      Some properties are not inherited. For example, a parent's border does not
-      automatically apply to children. :contentReference[oaicite:4]{index=4}
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='box'>
-  Parent has a border
-  <p class='child'>Child paragraph (no border by default)</p>
-</div>"
-         data-css=".box{
-  border: 3px solid #111827;
-  padding: 12px;
-  border-radius: 12px;
-}
-.child{
-  margin: 10px 0 0;
-  padding: 10px;
-  background: #f9fafb;
-}">
-
-<pre><code>/* non-inherited example */
-.box { border: 3px solid #111827; }
-/* the child does NOT inherit border */</code></pre>
-
-    </div>
-
-    <!-- ===================== -->
-    <!-- 3) Force inheritance: inherit keyword -->
-    <!-- ===================== -->
-    <h3>3. Forcing Inheritance: <code>inherit</code></h3>
-    <p>
-      The <code>inherit</code> keyword tells an element to take the computed value
-      from its parent for that property. It can be used on any property. :contentReference[oaicite:5]{index=5}
-    </p>
-
-    <div class="code-block"
-         data-html="<div class='outer'>
-  Parent has a dotted border
-  <span class='inner'>Child span inherits border</span>
-</div>"
-         data-css=".outer{
-  border: 3px dotted #2563eb;
-  padding: 12px;
-  border-radius: 12px;
-}
-.inner{
-  border: inherit;  /* inherits parent's border */
   padding: 6px 10px;
-  border-radius: 10px;
-  margin-left: 6px;
+  border: 1px solid #86efac;
 }">
 
-<pre><code>/* inherit keyword */
-.outer { border: 3px dotted #2563eb; }
-.inner { border: inherit; }</code></pre>
+<pre><code>/* block vs inline */
+.b { /* block default */ }
+.i { /* inline default */ }</code></pre>
 
     </div>
 
     <!-- ===================== -->
-    <!-- 4) Practical: make links inherit color -->
+    <!-- 4) display: inline-block -->
     <!-- ===================== -->
-    <h3>4. Practical Tip: Make Links Inherit Text Color</h3>
+    <h3>4. display: inline-block</h3>
     <p>
-      Browsers give links their own default styles. You can make links follow the parent
-      text color with <code>color: inherit</code>.
+      <code>inline-block</code> stays in the same line like inline, but you can set
+      width/height like block.
     </p>
 
     <div class="code-block"
-         data-html="<div class='theme'>
-  <p>Text in a themed box. <a href='#'>This link inherits color</a></p>
-</div>"
-         data-css=".theme{
-  color: #16a34a;
-  border: 2px solid #86efac;
-  background: #dcfce7;
-  padding: 12px;
-  border-radius: 12px;
-}
-.theme a{
-  color: inherit;
-  text-decoration: underline;
-  font-weight: 700;
+         data-html="<span class='ib'>Box 1</span>
+<span class='ib'>Box 2</span>
+<span class='ib'>Box 3</span>"
+         data-css=".ib {
+  display: inline-block;
+  width: 120px;
+  padding: 10px;
+  margin: 6px;
+  background: #fef9c3;
+  border: 1px solid #facc15;
+  text-align: center;
 }">
 
-<pre><code>/* make link follow the parent's color */
-.theme { color: #16a34a; }
-.theme a { color: inherit; }</code></pre>
+<pre><code>/* inline-block */
+.ib {
+  display: inline-block;
+  width: 120px;
+}</code></pre>
 
     </div>
 
     <p style="color: blue;">
-      Recap:
-      <strong>Inherited</strong> properties flow from parent to child automatically.
-      <strong>Non-inherited</strong> properties do not.
-      Use <code>inherit</code> to force a property to take the parent's value. :contentReference[oaicite:6]{index=6}
+      Quick summary:
+      <code>display</code> changes layout behavior, <code>visibility</code> only hides/shows.
     </p>
   `
 },
 
-website_layout: {
+"position": {
+  title: "CSS Positioning",
+  category: "Layout",
+  prev: "display_visibility",
+  next: "zindex", // sende yoksa null yap
+  content: `
+    <h2>CSS Positioning</h2>
+
+    <p>
+      CSS positioning controls where elements appear on the page. With positioning,
+      you can override the normal document flow.
+    </p>
+
+    <p style="color: blue;">
+      The <code>position</code> property can be:
+      <code>static</code>, <code>relative</code>, <code>absolute</code>, <code>fixed</code>, <code>sticky</code>.
+      Elements are then moved using <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) static -->
+    <!-- ===================== -->
+    <h3>1. position: static (default)</h3>
+    <p>
+      Static positioned elements follow the normal flow. The properties
+      <code>top/right/bottom/left</code> do not affect them.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='pbox static'>Static (top/left won't move me)</div>"
+         data-css=".pbox{
+  border: 2px solid #73AD21;
+  padding: 12px;
+  margin: 10px 0;
+  background: #f6fff2;
+}
+.static{
+  position: static;
+  top: 30px;
+  left: 30px;
+}">
+
+<pre><code>/* static: default (offsets won't move it) */
+.static {
+  position: static;
+  top: 30px;
+  left: 30px;
+}</code></pre>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- 2) relative -->
+    <!-- ===================== -->
+    <h3>2. position: relative</h3>
+    <p>
+      Relative positioning keeps the element in the normal flow, but shifts it visually
+      using offsets like <code>left</code> or <code>top</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='pbox'>Normal box</div>
+<div class='pbox relative'>Relative: moved 30px right</div>
+<div class='pbox'>Another normal box</div>"
+         data-css=".pbox{
+  border: 2px solid #73AD21;
+  padding: 12px;
+  margin: 10px 0;
+  background: #f6fff2;
+}
+.relative{
+  position: relative;
+  left: 30px;
+}">
+
+<pre><code>/* relative: moves from its normal position */
+.relative {
+  position: relative;
+  left: 30px;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Notice: The element moves, but it still keeps its original space in the layout. :contentReference[oaicite:1]{index=1}
+    </p>
+
+    <!-- ===================== -->
+    <!-- 3) absolute -->
+    <!-- ===================== -->
+    <h3>3. position: absolute</h3>
+    <p>
+      Absolute positioned elements are removed from the normal flow and positioned
+      relative to the nearest ancestor that is not <code>static</code>.
+      If none exists, it positions relative to the page (document body).
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='container'>
+  This is the relative container.
+  <div class='abs'>Absolute box</div>
+</div>"
+         data-css=".container{
+  position: relative;
+  height: 160px;
+  border: 2px solid #0ea5e9;
+  padding: 12px;
+  background: #eff6ff;
+}
+.abs{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 170px;
+  padding: 10px;
+  border: 2px solid #ef4444;
+  background: #fff1f2;
+}">
+
+<pre><code>/* absolute: positioned inside nearest positioned ancestor */
+.container { position: relative; }
+
+.abs {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Absolute elements can overlap other content because they are removed from normal flow. :contentReference[oaicite:2]{index=2}
+    </p>
+
+    <!-- ===================== -->
+    <!-- 4) fixed -->
+    <!-- ===================== -->
+    <h3>4. position: fixed</h3>
+    <p>
+      Fixed elements are positioned relative to the viewport, so they stay in the same
+      place even when the page is scrolled.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='demo-area'>
+  <p>Scroll inside this box to see the fixed badge stay put.</p>
+  <div class='fixed-badge'>Fixed</div>
+  <div class='filler'></div>
+</div>"
+         data-css=".demo-area{
+  position: relative;
+  height: 170px;
+  overflow: auto;
+  border: 2px solid #111827;
+  padding: 12px;
+  background: #f9fafb;
+}
+.filler{ height: 420px; }
+.fixed-badge{
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  padding: 10px 12px;
+  background: #111827;
+  color: white;
+  border-radius: 10px;
+  font-weight: 700;
+}">
+
+<pre><code>/* fixed: pinned to the viewport */
+.fixed-badge {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Note: Fixed elements also do not leave a gap where they would normally be. :contentReference[oaicite:3]{index=3}
+    </p>
+
+    <!-- ===================== -->
+    <!-- 5) sticky -->
+    <!-- ===================== -->
+    <h3>5. position: sticky</h3>
+    <p>
+      Sticky elements behave like <code>relative</code> until a scroll threshold is reached,
+      then they “stick” like <code>fixed</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='sticky-wrap'>
+  <div class='sticky-head'>I stick to the top</div>
+  <p>Scroll inside this box...</p>
+  <p>More content...</p>
+  <p>More content...</p>
+  <p>More content...</p>
+  <p>More content...</p>
+  <p>More content...</p>
+</div>"
+         data-css=".sticky-wrap{
+  height: 180px;
+  overflow: auto;
+  border: 2px solid #a855f7;
+  background: #faf5ff;
+}
+.sticky-head{
+  position: sticky;
+  top: 0;
+  padding: 10px 12px;
+  background: #a855f7;
+  color: white;
+  font-weight: 700;
+}">
+
+<pre><code>/* sticky: sticks after you scroll */
+.sticky-head {
+  position: sticky;
+  top: 0;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Summary:
+      <code>relative</code> = moves but keeps space,
+      <code>absolute/fixed</code> = removed from flow,
+      <code>sticky</code> = relative then fixed. :contentReference[oaicite:4]{index=4}
+    </p>
+  `
+},
+
+"float": {
+  title: "CSS Float (Clear, Overflow, z-index)",
+  category: "Layout",
+  prev: "positioning",
+  next: "flexbox", // sende yoksa null yap
+  content: `
+    <h2>CSS Float (Clear, Overflow, z-index)</h2>
+
+    <p>
+      <code>float</code> was originally designed to let text wrap around images,
+      but it was also used for page layouts before Flexbox and Grid.
+      In this lesson, we'll learn float basics, clearing floats, using overflow to fix layouts,
+      and a quick intro to <code>z-index</code> for overlapping elements.
+    </p>
+
+    <p style="color: blue;">
+      Tip: Today, use <strong>Flexbox/Grid</strong> for layouts. Use <strong>float</strong> mostly for text wrapping.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) Basic Float -->
+    <!-- ===================== -->
+    <h3>1. Basic Float (Text Wrap)</h3>
+    <p>
+      Floating an element moves it to the left or right, and the content wraps around it.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='wrap'>
+  <div class='img'>IMG</div>
+  <p>
+    This text wraps around the floated box. Float is very common for placing images
+    inside articles so that text flows nicely next to them.
+  </p>
+</div>"
+         data-css=".wrap{
+  border: 2px solid #ddd;
+  padding: 12px;
+}
+.img{
+  float: left;
+  width: 90px;
+  height: 90px;
+  background: #fde68a;
+  border: 2px solid #f59e0b;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  margin: 0 12px 8px 0;
+}">
+
+<pre><code>/* float for text wrapping */
+.img {
+  float: left;
+}</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 2) The "Collapse" Problem -->
+    <!-- ===================== -->
+    <h3>2. Float Problem: Parent Collapses</h3>
+    <p>
+      A floated element is removed from normal flow, so the parent may collapse (lose height).
+      In this demo, the parent border looks too small.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='parent bad'>
+  <div class='box'>Floated</div>
+</div>
+<p class='note'>The border above collapses because the floated box doesn't stretch the parent.</p>"
+         data-css=".parent{
+  border: 3px solid #ef4444;
+  padding: 10px;
+  margin: 10px 0;
+}
+.box{
+  float: left;
+  width: 140px;
+  height: 70px;
+  background: #bfdbfe;
+  border: 2px solid #2563eb;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+.note{ margin-top: 6px; }">
+
+<pre><code>/* common float issue: parent collapses */
+.parent { border: 3px solid #ef4444; }
+.box { float: left; }</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 3) Clearfix -->
+    <!-- ===================== -->
+    <h3>3. Clearing Floats (clearfix)</h3>
+    <p>
+      One classic solution is a clearfix using a pseudo-element.
+      This makes the parent wrap the floated children again.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='parent cf'>
+  <div class='box'>Floated</div>
+</div>
+<p class='note'>Now the parent border wraps the floated box.</p>"
+         data-css=".parent{
+  border: 3px solid #16a34a;
+  padding: 10px;
+  margin: 10px 0;
+}
+.box{
+  float: left;
+  width: 140px;
+  height: 70px;
+  background: #bfdbfe;
+  border: 2px solid #2563eb;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+/* clearfix */
+.cf::after{
+  content: '';
+  display: block;
+  clear: both;
+}">
+
+<pre><code>/* clearfix */
+.cf::after {
+  content: '';
+  display: block;
+  clear: both;
+}</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 4) Overflow "fix" + Overflow concept -->
+    <!-- ===================== -->
+    <h3>4. Using Overflow (and Overflow Basics)</h3>
+    <p>
+      Another common trick is setting <code>overflow: auto</code> (or <code>hidden</code>) on the parent.
+      This creates a new block formatting context so it contains floats.
+      Also, overflow controls what happens when content is too large for a box.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='parent ov'>
+  <div class='box'>Floated</div>
+  <p>Parent contains float using overflow.</p>
+</div>
+
+<div class='overflow-demo'>
+  This is a long line of text that will not fit in the box and shows overflow behavior...
+</div>"
+         data-css=".parent{
+  border: 3px solid #7c3aed;
+  padding: 10px;
+  margin: 10px 0;
+}
+.box{
+  float: left;
+  width: 140px;
+  height: 70px;
+  background: #bfdbfe;
+  border: 2px solid #2563eb;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  margin-right: 12px;
+}
+/* contains float */
+.ov{ overflow: auto; }
+
+.overflow-demo{
+  width: 260px;
+  height: 70px;
+  border: 2px solid #111827;
+  padding: 10px;
+  overflow: auto;
+  white-space: nowrap;
+  margin-top: 12px;
+}">
+
+<pre><code>/* contains floats */
+.parent { overflow: auto; }
+
+/* overflow basics */
+.overflow-demo {
+  height: 70px;
+  overflow: auto;
+}</code></pre>
+    </div>
+
+    <!-- ===================== -->
+    <!-- 5) z-index -->
+    <!-- ===================== -->
+    <h3>5. z-index (Overlapping Elements)</h3>
+    <p>
+      <code>z-index</code> controls which positioned element appears on top.
+      It works only on elements with a <code>position</code> value other than <code>static</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='stack'>
+  <div class='card one'>Box 1</div>
+  <div class='card two'>Box 2</div>
+  <div class='card three'>Box 3</div>
+</div>"
+         data-css=".stack{
+  position: relative;
+  height: 160px;
+  border: 2px dashed #9ca3af;
+  padding: 10px;
+}
+.card{
+  position: absolute;
+  width: 140px;
+  height: 90px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  border: 2px solid #111827;
+}
+.one{ top: 20px; left: 20px; background: #fecaca; z-index: 1; }
+.two{ top: 40px; left: 60px; background: #bbf7d0; z-index: 3; }
+.three{ top: 60px; left: 100px; background: #bfdbfe; z-index: 2; }">
+
+<pre><code>/* z-index works with positioned elements */
+.two { z-index: 3; } /* on top */</code></pre>
+    </div>
+
+    <p style="color: blue;">
+      Summary:
+      <strong>float</strong> wraps content,
+      <strong>clear/clearfix</strong> fixes float layout issues,
+      <strong>overflow</strong> manages content overflow and can contain floats,
+      <strong>z-index</strong> controls stacking order for positioned elements.
+    </p>
+  `
+},
+
+"align": {
+  title: "CSS Align",
+  category: "Layout",
+  prev: "float",
+  next: "flexbox", // sende yoksa null yapabilirsin
+  content: `
+    <h2>CSS Align</h2>
+
+    <p>
+      CSS alignment properties are used to align text, inline elements, block elements,
+      and boxes. The most common alignment properties include
+      <code>text-align</code>, <code>vertical-align</code>, and flexbox/grid alignment.
+    </p>
+
+    <p style="color: blue;">
+      Tip: Proper alignment improves readability and layout structure.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) Text Alignment -->
+    <!-- ===================== -->
+    <h3>1. Text Alignment</h3>
+    <p>
+      The <code>text-align</code> property aligns inline content (like text) horizontally
+      within a parent block.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='txt1'>Left aligned text</div>
+<div class='txt2'>Center aligned text</div>
+<div class='txt3'>Right aligned text</div>"
+         data-css=".txt1 { text-align: left; border: 1px solid #888; padding: 8px; }
+.txt2 { text-align: center; border: 1px solid #888; padding: 8px; }
+.txt3 { text-align: right; border: 1px solid #888; padding: 8px; }">
+
+<pre><code>/* text-align */
+.txt1 { text-align: left; }
+.txt2 { text-align: center; }
+.txt3 { text-align: right; }</code></pre>
+
+    </div>
+
+    <p>
+      Text alignment is very useful for headings and paragraphs to control horizontal flow.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 2) Vertical Align (inline/inline-block) -->
+    <!-- ===================== -->
+    <h3>2. Vertical Align</h3>
+    <p>
+      The <code>vertical-align</code> property aligns inline or inline-block elements
+      relative to the baseline.
+    </p>
+
+    <div class="code-block"
+         data-html="<span class='va1'>A</span>
+<span class='va2'>B</span>
+<span class='va3'>C</span>"
+         data-css=".va1 { font-size: 32px; vertical-align: baseline; }
+.va2 { font-size: 20px; vertical-align: middle; }
+.va3 { font-size: 14px; vertical-align: top; }">
+
+<pre><code>/* vertical-align */
+.va1 { vertical-align: baseline; }
+.va2 { vertical-align: middle; }
+.va3 { vertical-align: top; }</code></pre>
+
+    </div>
+
+    <p>
+      Often used with icons or inline boxes next to text.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 3) Aligning Boxes with margin auto -->
+    <!-- ===================== -->
+    <h3>3. Horizontal Box Centering</h3>
+    <p>
+      You can center a block-level box by using <code>margin: auto</code> if a width is set.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='boxcenter'>Centered box</div>"
+         data-css=".boxcenter {
+  width: 240px;
+  margin: auto;
+  padding: 12px;
+  background: #c7d2fe;
+  text-align: center;
+}">
+
+<pre><code>/* center block */
+.boxcenter {
+  width: 240px;
+  margin: auto;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This technique works well for fixed-width boxes in layouts.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 4) Flexbox Align Items (bonus modern) -->
+    <!-- ===================== -->
+    <h3>4. Flexbox Alignment (Modern)</h3>
+    <p>
+      With Flexbox you can align items horizontally and vertically using
+      <code>justify-content</code> and <code>align-items</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='flex'>
+  <div class='fx1'>Item 1</div>
+  <div class='fx2'>Item 2</div>
+  <div class='fx3'>Item 3</div>
+</div>"
+         data-css=".flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  background: #e5e7eb;
+}
+.flex div {
+  padding: 8px 12px;
+  border: 1px solid #4b5563;
+  margin: 0 6px;
+}">
+
+<pre><code>/* flexbox alignment */
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Flexbox alignment is now the most common way to align elements.
+    </p>
+  `
+},
+
+"website_layout": {
   title: "CSS Website Layout",
   category: "Layout",
   prev: "inheritance",
@@ -4737,40 +4116,1211 @@ website_layout: {
   `
 },
 
-    "flexbox": {
-        title: "Flexbox Layout",
-        category: "Layout",
-        prev: "boxmodel",
-        next: "grid",
+"flexbox_intro": {
+        title: "Introduction to Flexbox",
+        category: "Flexbox",
         content: `
-            <p class="lead">The Flexbox Layout (Flexible Box) module aims at providing a more efficient way to lay out, align and distribute space among items in a container.</p>
-            
-            <h2>Flex Container</h2>
-            <p>To start using the Flexbox model, you need to first define a flex container.</p>
-            <div class="code-block">
-.container {
-  display: flex;
-  justify-content: center;
+            <p class="lead">Flexbox (Flexible Box Layout) is a revolution in modern web design, used to align elements in a single dimension (row or column).</p>
+
+            <h2>Why Flexbox?</h2>
+            <p>Before Flexbox, we used <code>float</code> or <code>position</code> to create layouts. However, these methods had serious limitations:</p>
+            <ul>
+                <li>Vertical centering was difficult.</li>
+                <li>Making adjacent boxes equal height was hard.</li>
+                <li>Adapting to mobile devices (Responsive) was complex.</li>
+            </ul>
+            <p>Flexbox solves all these problems with just a few lines of code!</p>
+
+            <h2>Understanding the Flex Model</h2>
+            <p>There are two key concepts in Flexbox:</p>
+            <ol>
+                <li><strong>Flex Container (Parent):</strong> The wrapper element.</li>
+                <li><strong>Flex Items (Children):</strong> The direct children inside the wrapper.</li>
+            </ol>
+
+            <p style="color: blue;">The magic starts with: <code>display: flex;</code></p>
+
+            <div class="code-block"
+                 data-html="<div class='container'>
+  <div class='box'>1</div>
+  <div class='box'>2</div>
+  <div class='box'>3</div>
+</div>
+
+<p>The boxes above align side-by-side the moment 'display: flex' is applied to the container.</p>"
+                 data-css=".container {
+  display: flex; /* This is where the magic happens! */
+  background: #e0e7ff;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #325dff;
 }
+
+.box {
+  background: #325dff;
+  color: white;
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 6px;
+}">
+                 <pre><code>.container {
+  display: flex; /* Aligns children side-by-side */
+}</code></pre>
+            </div>
+
+            <h2>Flexbox Axes</h2>
+            <p>When working with Flexbox, you need to think in terms of two imaginary lines:</p>
+            <ul>
+                <li><strong>Main Axis:</strong> The direction items are laid out (Default: Left to Right).</li>
+                <li><strong>Cross Axis:</strong> The direction perpendicular to the main axis (Default: Top to Bottom).</li>
+            </ul>
+            
+            <p>In the next lessons, we will learn how to align items using these axes.</p>
+        `
+},
+
+"flex_container": {
+        title: "Flex Container (Direction & Wrap)",
+        category: "Flexbox",
+        content: `
+            <p class="lead">The first step in Flexbox is managing the container. This determines whether items align horizontally or vertically, and what happens when they run out of space.</p>
+
+            <h2>1. Flex Direction</h2>
+            <p>The <code>flex-direction</code> property defines the direction of the items. The default is <code>row</code>.</p>
+
+            <div class="code-block"
+                 data-html="<div class='container row'>
+  <div class='box'>1</div>
+  <div class='box'>2</div>
+  <div class='box'>3</div>
+</div>
+
+<div class='container col'>
+  <div class='box'>1</div>
+  <div class='box'>2</div>
+  <div class='box'>3</div>
+</div>"
+                 data-css=".container {
+  display: flex;
+  background: #f0f2f5;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+}
+.row { flex-direction: row; } /* Side by Side */
+.col { flex-direction: column; } /* Stacked */
+
+.box {
+  background: #325dff;
+  color: white;
+  padding: 15px;
+  margin: 5px;
+  width: 50px;
+  text-align: center;
+}">
+                 <pre><code>/* Side by side (Default) */
+.row { flex-direction: row; }
+
+/* Vertical Stack */
+.col { flex-direction: column; }</code></pre>
+            </div>
+
+            <h2>2. Flex Wrap</h2>
+            <p>By default, Flexbox tries to fit all items onto one line. If you use <code>flex-wrap: wrap</code>, items that don't fit will move to the next line.</p>
+
+            <div class="code-block"
+                 data-html="<div class='container wrap'>
+  <div class='box'>1</div><div class='box'>2</div><div class='box'>3</div>
+  <div class='box'>4</div><div class='box'>5</div><div class='box'>6</div>
+</div>"
+                 data-css=".container {
+  display: flex;
+  width: 200px; /* Narrow space */
+  border: 2px solid red;
+  background: #fff;
+}
+.wrap {
+  flex-wrap: wrap; /* Drop to next line if needed */
+}
+.box {
+  width: 60px;
+  height: 60px;
+  background: orange;
+  margin: 5px;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+}">
+                 <pre><code>.container {
+  display: flex;
+  flex-wrap: wrap; /* Handle overflow */
+}</code></pre>
+            </div>
+
+            <h2>3. Gap</h2>
+            <p>Instead of using margins, the <code>gap</code> property is the modern way to create equal spacing between items.</p>
+             <div class="code-block"
+                 data-html="<div class='container gap'>
+  <div class='box'>A</div>
+  <div class='box'>B</div>
+  <div class='box'>C</div>
+</div>"
+                 data-css=".container {
+  display: flex;
+  gap: 20px; /* 20px space between items */
+}
+.box { padding: 20px; background: rebeccapurple; color: white; }">
+                 <pre><code>.container {
+  display: flex;
+  gap: 20px;
+}</code></pre>
             </div>
         `
-    },
+},
 
-    "grid": {
-        title: "CSS Grid Layout",
-        category: "Layout",
-        prev: "flexbox",
-        next: null,
+"flex_align": {
+        title: "Flex Alignment (Justify & Align)",
+        category: "Flexbox",
         content: `
-            <p>CSS Grid Layout excels at dividing a page into major regions or defining the relationship in terms of size, position, and layer.</p>
-            <p>Like tables, grid layout enables an author to align elements into columns and rows.</p>
-             <div class="code-block">
-.grid-container {
+            <p class="lead">The superpower of Flexbox is alignment. You can easily center or distribute items horizontally and vertically.</p>
+
+            <h2>1. Justify Content (Main Axis)</h2>
+            <p><code>justify-content</code> aligns items along the main axis (usually horizontally).</p>
+
+            <div class="code-block"
+                 data-html="<p>center:</p>
+<div class='flex center'>
+  <div class='item'>1</div><div class='item'>2</div><div class='item'>3</div>
+</div>
+
+<p>space-between (Most common):</p>
+<div class='flex between'>
+  <div class='item'>1</div><div class='item'>2</div><div class='item'>3</div>
+</div>"
+                 data-css=".flex {
+  display: flex;
+  background: #e0e7ff;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.center { justify-content: center; }
+.between { justify-content: space-between; }
+
+.item {
+  width: 40px; height: 40px;
+  background: #4f46e5; color: white;
+  display: grid; place-items: center;
+}">
+                 <pre><code>/* Center items */
+.center { justify-content: center; }
+
+/* Push items to edges */
+.between { justify-content: space-between; }</code></pre>
+            </div>
+
+            <h2>2. Align Items (Cross Axis)</h2>
+            <p><code>align-items</code> aligns items along the cross axis (usually vertically).</p>
+
+            <div class="code-block"
+                 data-html="<div class='flex-v center-v'>
+  <div class='item' style='height:40px'>Short</div>
+  <div class='item' style='height:80px'>Tall</div>
+  <div class='item' style='height:60px'>Medium</div>
+</div>"
+                 data-css=".flex-v {
+  display: flex;
+  height: 120px; /* Height is required */
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+.center-v {
+  align-items: center; /* Center vertically */
+}
+.item {
+  background: #16a34a; color: white;
+  padding: 5px; margin: 0 5px;
+  display: flex; align-items: center; justify-content: center;
+}">
+                 <pre><code>.container {
+  display: flex;
+  height: 120px;
+  align-items: center; /* Vertical centering */
+}</code></pre>
+            </div>
+
+            <p style="color: blue;">Pro Tip: To place something exactly in the center of the page: <br>Use <code>justify-content: center;</code> AND <code>align-items: center;</code>.</p>
+        `
+},
+
+"flex_sizing": {
+        title: "Flex Items (Grow, Shrink, Basis)",
+        category: "Flexbox",
+        content: `
+            <p class="lead">These properties apply directly to the <strong>items (children)</strong>, not the container. They determine how items grow or shrink to fit the space.</p>
+
+            <h2>1. flex-grow</h2>
+            <p>This defines how much an item will grow relative to the rest of the flexible items. If you set <code>flex-grow: 1</code>, the item will take up all remaining space.</p>
+
+            <div class="code-block"
+                 data-html="<div class='cont'>
+  <div class='fixed'>Logo</div>
+  <div class='grow'>Search Bar (flex-grow: 1)</div>
+  <div class='fixed'>Menu</div>
+</div>"
+                 data-css=".cont {
+  display: flex;
+  gap: 10px;
+  background: #eee; padding: 10px;
+}
+.fixed {
+  background: #aaa; padding: 10px;
+}
+.grow {
+  background: #3b82f6; color: white; padding: 10px;
+  flex-grow: 1; /* Eat up all remaining space */
+}">
+                 <pre><code>.grow {
+  flex-grow: 1;
+}</code></pre>
+            </div>
+
+            <h2>2. The 'flex' Shorthand</h2>
+            <p>Usually, we don't write grow, shrink, and basis separately. We use the <code>flex</code> shorthand.</p>
+            <ul>
+                <li><code>flex: 1;</code> -> Grow to fill space evenly.</li>
+                <li><code>flex: initial;</code> -> Only take up necessary space (default).</li>
+            </ul>
+        `
+},
+
+"flex_project": {
+        title: "Project: Responsive Navbar",
+        category: "Flexbox",
+        content: `
+            <p class="lead">One of the most common uses of Flexbox is navigation menus. Let's build a simple, modern header.</p>
+
+            <h3>The Goal</h3>
+            <p>Logo on the left, links on the right. Equal spacing between links.</p>
+
+            <div class="code-block"
+                 data-html="<nav class='navbar'>
+  <div class='logo'>MyBrand</div>
+  <ul class='nav-links'>
+    <li><a href='#'>Home</a></li>
+    <li><a href='#'>About</a></li>
+    <li><a href='#'>Contact</a></li>
+  </ul>
+</nav>"
+                 data-css="/* 1. Container Settings */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Logo left, links right */
+  align-items: center; /* Center vertically */
+  padding: 1rem 2rem;
+  background: #111827;
+  color: white;
+}
+
+.logo { font-weight: bold; font-size: 1.2rem; }
+
+/* 2. Links List Settings */
+.nav-links {
+  display: flex; /* Align links side-by-side */
+  gap: 20px; /* Space between links */
+  list-style: none;
+  margin: 0; padding: 0;
+}
+
+.nav-links a {
+  color: #d1d5db;
+  text-decoration: none;
+}
+.nav-links a:hover { color: white; }">
+                 <pre><code>.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}</code></pre>
+            </div>
+            
+            <p>This structure is the foundation of responsive web design.</p>
+        `
+},
+
+"grid_intro": {
+        title: "Introduction to CSS Grid",
+        category: "CSS Grid",
+        content: `
+            <p class="lead">CSS Grid Layout is the most powerful layout system available in CSS. It is a 2-dimensional system, meaning it can handle both columns and rows, unlike Flexbox which is largely 1-dimensional.</p>
+
+            <h2>1. Defining a Grid Container</h2>
+            <p>Like Flexbox, you start by setting <code>display: grid</code> on the container. This enables grid properties for all direct children.</p>
+
+            <div class="code-block"
+                 data-html="<div class='grid-container'>
+  <div class='item'>1</div>
+  <div class='item'>2</div>
+  <div class='item'>3</div>
+  <div class='item'>4</div>
+  <div class='item'>5</div>
+  <div class='item'>6</div>
+</div>"
+                 data-css=".grid-container {
   display: grid;
+  /* Define Columns: 3 columns of equal width */
   grid-template-columns: auto auto auto;
   gap: 10px;
+  background: #f3f4f6;
+  padding: 10px;
 }
+
+.item {
+  background: #2563eb;
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+  text-align: center;
+}">
+                 <pre><code>.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}</code></pre>
+            </div>
+
+            <h2>2. The 'fr' Unit</h2>
+            <p>CSS Grid introduced a new unit called <code>fr</code> (fraction). It represents a fraction of the available space in the grid container.</p>
+
+            <div class="code-block"
+                 data-html="<div class='grid-fr'>
+  <div class='item'>1fr</div>
+  <div class='item'>2fr</div>
+  <div class='item'>1fr</div>
+</div>"
+                 data-css=".grid-fr {
+  display: grid;
+  /* Middle column is twice as wide */
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 10px;
+  background: #e5e7eb;
+  padding: 10px;
+}
+.item { background: #7c3aed; color: white; padding: 20px; text-align: center; }">
+                 <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}</code></pre>
             </div>
         `
-    }
+},
+
+
+  "grid_placement": {
+        title: "Grid Placement (Spanning)",
+        category: "CSS Grid",
+        content: `
+            <p class="lead">The real power of Grid comes from placing items exactly where you want them. You can make an item span across multiple columns or rows.</p>
+
+            <h2>1. Spanning Columns</h2>
+            <p>Use <code>grid-column</code> to define how many columns an item should take up.</p>
+
+            <div class="code-block"
+                 data-html="<div class='layout'>
+  <div class='header'>Header</div>
+  <div class='sidebar'>Sidebar</div>
+  <div class='content'>Main Content</div>
+  <div class='footer'>Footer</div>
+</div>"
+                 data-css=".layout {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* Sidebar & Content */
+  gap: 10px;
+  background: #ddd;
+  padding: 10px;
+}
+
+.header {
+  grid-column: 1 / -1; /* Span from start to end */
+  background: #111827; color: white; padding: 20px;
+}
+
+.sidebar { background: #3b82f6; color: white; padding: 20px; }
+.content { background: #ffffff; padding: 20px; }
+
+.footer {
+  grid-column: 1 / span 2; /* Span 2 columns */
+  background: #1f2937; color: white; padding: 20px;
+}">
+                 <pre><code>.header {
+  /* Start at line 1, end at the last line (-1) */
+  grid-column: 1 / -1;
+}
+
+.footer {
+  /* Start at current line, span 2 columns */
+  grid-column: span 2;
+}</code></pre>
+            </div>
+
+            <h2>2. Spanning Rows</h2>
+            <p>Similarly, <code>grid-row</code> is used to make an item span multiple vertical rows.</p>
+        `
+},
+
+  "grid_responsive": {
+        title: "Responsive Grid (Auto-fit & Minmax)",
+        category: "CSS Grid",
+        content: `
+            <p class="lead">With Grid, you can create responsive layouts without even using Media Queries! The magic combination is <code>repeat</code>, <code>auto-fit</code>, and <code>minmax</code>.</p>
+
+            <h2>The Magic Formula</h2>
+            <p>This single line of CSS creates a responsive card layout that automatically adjusts the number of columns based on the screen width.</p>
+
+            <div class="code-block"
+                 data-html="<div class='magic-grid'>
+  <div class='card'>Card 1</div>
+  <div class='card'>Card 2</div>
+  <div class='card'>Card 3</div>
+  <div class='card'>Card 4</div>
+</div>"
+                 data-css=".magic-grid {
+  display: grid;
+  /* The Magic Line */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  background: #f0fdf4;
+  padding: 1rem;
+  border: 1px solid #4ade80;
+}
+
+.card {
+  background: #15803d;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+}">
+                 <pre><code>.container {
+  display: grid;
+  /* Creates as many columns as fit */
+  /* Each column is at least 150px wide */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}</code></pre>
+            </div>
+
+            <p style="color: blue;">Resize the editor window to see the cards rearrange automatically!</p>
+        `
+},
+
+  "grid_project": {
+        title: "Project: Image Gallery",
+        category: "CSS Grid",
+        content: `
+            <p class="lead">Let's build a modern "Masonry-style" image gallery where some images are larger than others, creating an interesting layout.</p>
+
+            <h3>The Layout</h3>
+            <p>We will use a 4-column grid and make some images span 2 columns or 2 rows to break the monotony.</p>
+
+            <div class="code-block"
+                 data-html="<div class='gallery'>
+  <div class='img wide'>Wide Img</div>
+  <div class='img'>Img</div>
+  <div class='img'>Img</div>
+  <div class='img tall'>Tall Img</div>
+  <div class='img'>Img</div>
+  <div class='img wide'>Wide Img</div>
+</div>"
+                 data-css=".gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 100px; /* Base height for rows */
+  gap: 10px;
+  padding: 10px;
+  background: #111;
+}
+
+.img {
+  background: #333;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Specific Spans */
+.wide {
+  grid-column: span 2;
+  background: #3b82f6; color: white;
+}
+.tall {
+  grid-row: span 2;
+  background: #ef4444; color: white;
+}">
+                 <pre><code>.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 100px;
+}
+
+.wide { grid-column: span 2; }
+.tall { grid-row: span 2; }</code></pre>
+            </div>
+            
+            <p>This technique is widely used in portfolio websites and photography blogs.</p>
+        `
+},
+
+
+
+"combinators": {
+  title: "CSS Combinators",
+  category: "Advanced Selectors",
+  prev: "grouping",
+  next: "comments",
+  content: `
+    <h2>CSS Combinators</h2>
+
+    <p>
+      CSS combinators allow you to combine selectors to target elements based on their
+      relationship in the document tree.
+    </p>
+
+    <p style="color: blue;">
+      These include:
+      <code>descendant</code>,
+      <code>child</code>,
+      <code>adjacent sibling</code>,
+      and <code>general sibling</code> combinators.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) Descendant Combinator (space) -->
+    <!-- ===================== -->
+    <h3>1. Descendant Combinator</h3>
+    <p>
+      The space combinator selects elements that are descendants of another selector.
+      It matches children, grandchildren, etc.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='parent'>
+  <p>This is a child &lt;p&gt;</p>
+  <div class='inner'>
+    <p>This is a nested child &lt;p&gt;</p>
+  </div>
+</div>"
+         data-css=".parent p {
+  color: red;
+}">
+
+<pre><code>/* Descendant combinator */
+.parent p {
+  color: red;
+}</code></pre>
+
+    </div>
+
+    <p>
+      In this example, both paragraphs inside <code>.parent</code> turn red.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 2) Child Combinator (>) -->
+    <!-- ===================== -->
+    <h3>2. Child Combinator</h3>
+    <p>
+      The child combinator (<code>&gt;</code>) selects only direct children.
+    </p>
+
+    <div class="code-block"
+         data-html="<div class='parent2'>
+  <p>Direct child &lt;p&gt;</p>
+  <div class='inner'>
+    <p>Nested child &lt;p&gt; (not styled)</p>
+  </div>
+</div>"
+         data-css=".parent2 &gt; p {
+  color: green;
+}">
+
+<pre><code>/* Child combinator */
+.parent2 > p {
+  color: green;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Only the direct paragraph inside <code>.parent2</code> becomes green.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 3) Adjacent Sibling (+) -->
+    <!-- ===================== -->
+    <h3>3. Adjacent Sibling Combinator</h3>
+    <p>
+      The adjacent sibling combinator (<code>+</code>) selects an element that comes
+      immediately after another element.
+    </p>
+
+    <div class="code-block"
+         data-html="<h3>Header</h3>
+<p class='adj'>This paragraph follows the header directly.</p>
+<p>This paragraph does not get styled.</p>"
+         data-css="h3 + p {
+  color: blue;
+}">
+
+<pre><code>/* Adjacent sibling combinator */
+h3 + p {
+  color: blue;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Only the first <code>&lt;p&gt;</code> that **immediately follows** the <code>&lt;h3&gt;</code> is blue.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 4) General Sibling (~) -->
+    <!-- ===================== -->
+    <h3>4. General Sibling Combinator</h3>
+    <p>
+      The general sibling combinator (<code>~</code>) selects all siblings after an element.
+    </p>
+
+    <div class="code-block"
+         data-html="<h3>Header</h3>
+<p class='gen'>First following sibling</p>
+<p class='gen'>Second following sibling</p>"
+         data-css="h3 ~ p {
+  color: purple;
+}">
+
+<pre><code>/* General sibling combinator */
+h3 ~ p {
+  color: purple;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      In this example, both paragraphs that come after the <code>&lt;h3&gt;</code> are purple.
+    </p>
+  `
+},
+
+"pseudo": {
+  title: "CSS Pseudo-Classes & Pseudo-Elements",
+  category: "Advanced Selectors",
+  prev: "combinators",
+  next: "howto",
+  content: `
+    <h2>CSS Pseudo-Classes & Pseudo-Elements</h2>
+
+    <p>
+      CSS pseudo-classes and pseudo-elements let you style elements based on their
+      state or specific parts of the element. They enhance regular selectors
+      without extra HTML.
+    </p>
+
+    <p style="color: blue;">
+      Tip: Pseudo-classes use a single colon (<code>:</code>), pseudo-elements use a double colon (<code>::</code>).
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) Pseudo-Classes: :hover, :active -->
+    <!-- ===================== -->
+    <h3>1. Pseudo-Classes (<code>:hover</code>, <code>:active</code>)</h3>
+    <p>
+      Pseudo-classes target elements based on interaction or state.
+    </p>
+
+    <div class="code-block"
+         data-html="<p><a href='#' class='btn1'>Hover me</a> or <a href='#' class='btn2'>Click me</a></p>"
+         data-css=".btn1:hover {
+  color: white;
+  background: #2563eb;
+}
+.btn2:active {
+  color: white;
+  background: #dc2626;
+}">
+
+<pre><code>/* pseudo-classes */
+.btn1:hover {
+  background: #2563eb;
+  color: white;
+}
+.btn2:active {
+  background: #dc2626;
+  color: white;
+}</code></pre>
+
+    </div>
+
+    <p>
+      With <code>:hover</code>, styles apply when the mouse is over the element.
+      <code>:active</code> applies during clicking.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 2) Pseudo-Class: :first-child, :last-child -->
+    <!-- ===================== -->
+    <h3>2. <code>:first-child</code> & <code>:last-child</code></h3>
+    <p>
+      These select only the first or last child of a parent.
+    </p>
+
+    <div class="code-block"
+         data-html="<ul class='fc'>
+  <li>First</li><li>Middle</li><li>Last</li>
+</ul>"
+         data-css=".fc li:first-child {
+  color: green;
+}
+.fc li:last-child {
+  color: red;
+}">
+
+<pre><code>/* first & last child */
+.fc li:first-child {
+  color: green;
+}
+.fc li:last-child {
+  color: red;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This is useful for highlighting specific list items without extra classes.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 3) Pseudo-Elements: ::before -->
+    <!-- ===================== -->
+    <h3>3. Pseudo-Element <code>::before</code></h3>
+    <p>
+      <code>::before</code> inserts content before an element’s content.
+    </p>
+
+    <div class="code-block"
+         data-html="<p class='pb'>This paragraph</p>"
+         data-css=".pb::before {
+  content: '🌟 ';
+  color: gold;
+}">
+
+<pre><code>/* pseudo-element before */
+.pb::before {
+  content: '🌟 ';
+  color: gold;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Use <code>content</code> to add icons, quotes, or extra text without changing HTML.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 4) Pseudo-Elements: ::after -->
+    <!-- ===================== -->
+    <h3>4. Pseudo-Element <code>::after</code></h3>
+    <p>
+      <code>::after</code> adds content after the element.
+    </p>
+
+    <div class="code-block"
+         data-html="<p class='pa'>Styled with after</p>"
+         data-css=".pa::after {
+  content: ' ✓';
+  color: green;
+  font-weight: bold;
+}">
+
+<pre><code>/* pseudo-element after */
+.pa::after {
+  content: ' ✓';
+  color: green;
+  font-weight: bold;
+}</code></pre>
+
+    </div>
+
+    <p>
+      This is often used to mark completion, decorations, or effects.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 5) Pseudo-Element: ::first-letter -->
+    <!-- ===================== -->
+    <h3>5. <code>::first-letter</code></h3>
+    <p>
+      <code>::first-letter</code> applies styles to the first character of a block.
+    </p>
+
+    <div class="code-block"
+         data-html="<p class='fl'>Fancy first letter</p>"
+         data-css=".fl::first-letter {
+  font-size: 2.2em;
+  color: #8b5cf6;
+  font-weight: bold;
+}">
+
+<pre><code>/* pseudo-element first-letter */
+.fl::first-letter {
+  font-size: 2.2em;
+  color: #8b5cf6;
+  font-weight: bold;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Quick recap:
+      <code>:hover</code>, <code>:active</code>, <code>:first-child</code> are pseudo-classes;
+      <code>::before</code>, <code>::after</code>, <code>::first-letter</code> are pseudo-elements.
+    </p>
+  `
+},
+
+"attribute_selectors": {
+  title: "CSS Attribute Selectors",
+  category: "Advanced Selectors",
+  prev: "pseudo",
+  next: "howto",
+  content: `
+    <h2>CSS Attribute Selectors</h2>
+
+    <p>
+      Attribute selectors allow you to select elements based on their attributes
+      or attribute values. This is very powerful for forms, links, and dynamic content.
+    </p>
+
+    <p style="color: blue;">
+      Tip: Attribute selectors are written using square brackets <code>[]</code>.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) [attribute] -->
+    <!-- ===================== -->
+    <h3>1. Select by Attribute Presence</h3>
+    <p>
+      Selects all elements that have a specific attribute.
+    </p>
+
+    <div class="code-block"
+         data-html="<input type='text' placeholder='Your name'>
+<input type='password' placeholder='Password'>"
+         data-css="input[placeholder] {
+  border: 2px solid #2563eb;
+  padding: 6px;
+}">
+
+<pre><code>/* has attribute */
+input[placeholder] {
+  border: 2px solid #2563eb;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Both inputs are selected because they have the <code>placeholder</code> attribute.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 2) [attribute=value] -->
+    <!-- ===================== -->
+    <h3>2. Select by Exact Value</h3>
+    <p>
+      Selects elements with an exact attribute value.
+    </p>
+
+    <div class="code-block"
+         data-html="<input type='text' value='Text field'>
+<input type='password' value='Secret'>"
+         data-css="input[type='password'] {
+  background: #fee2e2;
+  border: 2px solid #dc2626;
+}">
+
+<pre><code>/* exact value */
+input[type='password'] {
+  background: #fee2e2;
+  border: 2px solid #dc2626;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Only the password input is styled.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 3) [attribute^=value] -->
+    <!-- ===================== -->
+    <h3>3. Starts With (<code>^=</code>)</h3>
+    <p>
+      Selects elements whose attribute value starts with a specific string.
+    </p>
+
+    <div class="code-block"
+         data-html="<a href='https://google.com'>Google</a><br>
+<a href='http://example.com'>Example</a>"
+         data-css="a[href^='https'] {
+  color: green;
+  font-weight: bold;
+}">
+
+<pre><code>/* starts with */
+a[href^='https'] {
+  color: green;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Only secure (https) links become green.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 4) [attribute$=value] -->
+    <!-- ===================== -->
+    <h3>4. Ends With (<code>$=</code>)</h3>
+    <p>
+      Selects elements whose attribute value ends with a specific string.
+    </p>
+
+    <div class="code-block"
+         data-html="<img src='photo.jpg'>
+<img src='icon.png'>"
+         data-css="img[src$='.png'] {
+  border: 3px solid orange;
+}">
+
+<pre><code>/* ends with */
+img[src$='.png'] {
+  border: 3px solid orange;
+}</code></pre>
+
+    </div>
+
+    <p>
+      Only PNG images get an orange border.
+    </p>
+
+    <!-- ===================== -->
+    <!-- 5) [attribute*=value] -->
+    <!-- ===================== -->
+    <h3>5. Contains (<code>*=</code>)</h3>
+    <p>
+      Selects elements whose attribute value contains a specific substring.
+    </p>
+
+    <div class="code-block"
+         data-html="<a href='profile-user.html'>User Profile</a><br>
+<a href='admin-panel.html'>Admin Panel</a>"
+         data-css="a[href*='admin'] {
+  color: red;
+  font-weight: bold;
+}">
+
+<pre><code>/* contains */
+a[href*='admin'] {
+  color: red;
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Recap:
+      <code>[attr]</code>,
+      <code>[attr=value]</code>,
+      <code>[attr^=value]</code>,
+      <code>[attr$=value]</code>,
+      <code>[attr*=value]</code>
+    </p>
+  `
+},
+
+"counters": {
+  title: "CSS Counters",
+  category: "Advanced Selectors",
+  prev: "forms",
+  next: null, // sende sonraki konu varsa yaz
+  content: `
+    <h2>CSS Counters</h2>
+
+    <p>
+      CSS counters let you create automatic numbering (headings, sections, lists)
+      without JavaScript. Counters are like CSS-managed variables. :contentReference[oaicite:1]{index=1}
+    </p>
+
+    <p style="color: blue;">
+      Main tools: <code>counter-reset</code>, <code>counter-increment</code>, and
+      inserting the value using <code>content</code> + <code>counter()</code>/<code>counters()</code>. :contentReference[oaicite:2]{index=2}
+    </p>
+
+    <!-- ===================== -->
+    <!-- 1) Basic heading counter -->
+    <!-- ===================== -->
+    <h3>1. Numbering Headings</h3>
+    <p>
+      Create a counter on the page, then increment it for each heading and print it using <code>::before</code>.
+    </p>
+
+    <div class="code-block"
+         data-html="<h2>HTML Tutorial</h2>
+<p>Some text...</p>
+<h2>CSS Tutorial</h2>
+<p>Some text...</p>
+<h2>JavaScript Tutorial</h2>
+<p>Some text...</p>"
+         data-css="body{
+  counter-reset: section;
+}
+h2::before{
+  counter-increment: section;
+  content: 'Section ' counter(section) ': ';
+  font-weight: 800;
+  color: #2563eb;
+}">
+
+<pre><code>body { counter-reset: section; }
+
+h2::before {
+  counter-increment: section;
+  content: "Section " counter(section) ": ";
+}</code></pre>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- 2) Nested counters with counters() -->
+    <!-- ===================== -->
+    <h3>2. Nested Numbering (1, 1.1, 1.2...)</h3>
+    <p>
+      Use nested counters and the <code>counters()</code> function to build multi-level numbers. :contentReference[oaicite:3]{index=3}
+    </p>
+
+    <div class="code-block"
+         data-html="<ol class='toc'>
+  <li>Intro</li>
+  <li>Selectors
+    <ol>
+      <li>Class</li>
+      <li>ID</li>
+    </ol>
+  </li>
+  <li>Colors</li>
+</ol>"
+         data-css=".toc{
+  counter-reset: item;
+  list-style: none;
+  padding-left: 0;
+}
+.toc li{
+  counter-increment: item;
+  margin: 8px 0;
+}
+.toc li::before{
+  content: counters(item,'.') ' ';
+  font-weight: 800;
+  color: #111827;
+}
+.toc ol{
+  counter-reset: item;
+  list-style: none;
+  padding-left: 18px;
+  margin-top: 6px;
+}">
+
+<pre><code>/* nested counters */
+ol { counter-reset: item; list-style: none; }
+li { counter-increment: item; }
+li::before { content: counters(item, ".") " "; }</code></pre>
+
+    </div>
+
+    <!-- ===================== -->
+    <!-- 3) Styling the counter like a badge -->
+    <!-- ===================== -->
+    <h3>3. Counter as a Badge</h3>
+    <p>
+      You can style the generated number like a small badge.
+    </p>
+
+    <div class="code-block"
+         data-html="<h3 class='badge'>Lesson</h3>
+<h3 class='badge'>Practice</h3>
+<h3 class='badge'>Quiz</h3>"
+         data-css="body{ counter-reset: step; }
+
+.badge{
+  counter-increment: step;
+  margin: 12px 0;
+  padding-left: 48px;
+  position: relative;
+  line-height: 1.2;
+}
+.badge::before{
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  color: white;
+  background: #04AA6D;
+}">
+
+<pre><code>body { counter-reset: step; }
+
+.badge { counter-increment: step; }
+.badge::before {
+  content: counter(step);
+}</code></pre>
+
+    </div>
+
+    <p style="color: blue;">
+      Recap:
+      <code>counter-reset</code> starts/reset the counter,
+      <code>counter-increment</code> adds to it,
+      and <code>content</code> prints it using <code>counter()</code>/<code>counters()</code>. :contentReference[oaicite:4]{index=4}
+    </p>
+  `
+},
+
+
+
+
+
+
+
+
+
+
+
+
 };
+
